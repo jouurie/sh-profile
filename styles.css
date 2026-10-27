@@ -20,7 +20,7 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 .profile-age-annotation svg{position:absolute;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .profile-age-circle{left:-.5em;top:-.25em;width:calc(100% + 1em);height:calc(100% + .5em)}
 .profile-age-arrow{left:calc(100% - .1em);top:-1.65em;width:3.7em;height:2.3em}
-.profile-age-memo{position:absolute;left:calc(100% + 1.7em);top:-1.3em;white-space:nowrap;font:1.6em/1 'Nanum Pen Script',cursive;transform:rotate(-10deg)}
+.profile-age-memo{position:absolute;left:calc(100% + 82px);top:-32px;white-space:nowrap;font:1.6em/1 'Nanum Pen Script',cursive;transform:rotate(-10deg)}
 
 /* Platform choice stays beside the first-day action. */
 .hero-platform-chooser{position:relative;flex:1;min-width:0}
@@ -120,3 +120,9 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
  #guide-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-nav-items button{font-size:12px}
  .settings-metrics{grid-template-columns:1fr}.setting-metric{padding:12px}.setting-metric strong{font-size:26px}
 }
+
+/* Reveal the single masked headline character on hover or keyboard/touch focus. */
+.hero h1 .hook-reveal{display:inline-block;appearance:none;margin:0;padding:0;border:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;line-height:inherit;vertical-align:baseline}
+.hero h1 .hook-reveal i{display:inline-block;font-style:normal;filter:blur(6px);transition:filter .18s ease}
+.hero h1 .hook-reveal:is(:hover,:focus) i{filter:blur(0)}
+@media(prefers-reduced-motion:reduce){.hero h1 .hook-reveal i{transition:none}}
