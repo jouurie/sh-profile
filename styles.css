@@ -14,6 +14,30 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 @media(max-width:540px){.hero-art{top:218px;right:0;width:86%;height:290px}.hero-art>img{width:100%;right:0;object-position:top}.hero-lede{margin-top:314px}.hero h1{font-size:54px}.hand-note{top:178px;right:10px}.stamp{left:8px;bottom:7px}.heart-outline{top:-16px;right:12px}.home-bottom strong{font-size:18px}.home-bottom a{padding:18px 10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal-ready{opacity:1;transform:none}}@media(forced-colors:active){:root{scrollbar-color:auto}.button{border:1px solid ButtonText}}
 
+/* Handwritten margin note follows only the basic-information age token. */
+.profile-age-anchor{position:relative;display:inline-block}
+.profile-age-annotation{pointer-events:none;color:var(--red)}
+.profile-age-annotation svg{position:absolute;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.profile-age-circle{left:-.5em;top:-.25em;width:calc(100% + 1em);height:calc(100% + .5em)}
+.profile-age-arrow{left:calc(100% - .1em);top:-1.65em;width:3.7em;height:2.3em}
+.profile-age-memo{position:absolute;left:calc(100% + 1.7em);top:-1.3em;white-space:nowrap;font:1.6em/1 'Nanum Pen Script',cursive;transform:rotate(-10deg)}
+
+/* Platform choice stays beside the first-day action. */
+.hero-platform-chooser{position:relative;flex:1;min-width:0}
+.hero-platform-chooser>summary{cursor:pointer;list-style:none}
+.hero-platform-chooser>summary::-webkit-details-marker{display:none}
+.hero-platform-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:5;display:grid;gap:8px;min-width:180px;padding:12px;border:1px solid var(--ink);background:var(--paper)}
+.hero-platform-chooser:not([open]) .hero-platform-menu{display:none}
+.hero-platform-menu .button{min-height:44px}
+.hero-platform-menu button:disabled{cursor:default;color:var(--muted)}
+/* Shared grid rows keep corresponding comparison entries aligned. */
+.output-comparison{grid-template-columns:repeat(2,minmax(0,1fr))}
+.output-comparison>.guide-card{display:grid;grid-template-rows:subgrid;grid-row:span var(--comparison-rows);gap:0}
+.output-comparison>.guide-card>h3{align-self:stretch;text-wrap:initial}
+.comparison-heading-note{display:block}
+.output-comparison>.guide-card>.guide-list{display:grid;grid-template-rows:subgrid;grid-row:span calc(var(--comparison-rows) - 1);gap:0}
+@media(max-width:650px){.output-comparison{grid-template-columns:1fr}.output-comparison>.guide-card,.output-comparison>.guide-card>.guide-list{display:block;grid-row:auto}}
+
 /* Compact opening gallery: three cards per desktop row. */
 .starts-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 20px;max-width:900px;margin:0 auto}
 .opening{min-width:0;border:0;border-bottom:1px solid var(--line);padding:0 0 18px;display:flex;flex-direction:column}

@@ -188,7 +188,15 @@
     recommended() {
       if (!platformSection('settings', '추천 설정값')) return;
       panel.append(settingsPath('출력 탭'));
-      const options = make('div', 'guide-card-grid'); source('⭐ 추천 설정값').split('\n\n').forEach(block => { const lines = block.split('\n'), c = card(lines.shift()); settingsList(c, lines); options.append(c); }); panel.append(options);
+      const options = make('div', 'guide-card-grid output-comparison');
+      source('⭐ 추천 설정값').split('\n\n').forEach(block => {
+        const lines = block.split('\n'), title = lines.shift(), c = card(title);
+        const match = title.match(/^(약 사칭 플레이)\s*(\(.*\))$/);
+        if (match) { const heading = c.querySelector('h3'); heading.replaceChildren(document.createTextNode(match[1]), make('span', 'comparison-heading-note', match[2])); }
+        settingsList(c, lines); options.append(c);
+      });
+      options.style.setProperty('--comparison-rows', String(1 + Math.max(...[...options.children].map(c => c.querySelector('ul').children.length))));
+      panel.append(options);
       const modelChoice = card('채팅 모델'); modelChoice.append(disclosureLink('모델 추천에서 선택', 'guide-models')); panel.append(modelChoice);
       panel.append(tableBlock('프롬프트\n프롬프트: 상단에서 고른 플레이 방식에 맞춰 선택'));
       panel.append(settingsPath('출력 탭 → 과금 방식 및 출력 설정'));
