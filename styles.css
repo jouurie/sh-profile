@@ -20,7 +20,7 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 .profile-age-annotation svg{position:absolute;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .profile-age-circle{left:-.5em;top:-.25em;width:calc(100% + 1em);height:calc(100% + .5em)}
 .profile-age-arrow{left:calc(100% - .1em);top:-1.65em;width:3.7em;height:2.3em}
-.profile-age-memo{position:absolute;left:calc(100% + 82px);top:-32px;white-space:nowrap;font:1.6em/1 'Nanum Pen Script',cursive;transform:rotate(-10deg)}
+.profile-age-memo{position:absolute;left:calc(100% + 64px);top:-32px;white-space:nowrap;font:1.6em/1 'Nanum Pen Script',cursive;transform:rotate(-10deg)}
 
 /* Platform choice stays beside the first-day action. */
 .hero-platform-chooser{position:relative;flex:1;min-width:0}
