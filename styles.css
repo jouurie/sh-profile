@@ -14,28 +14,18 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 @media(max-width:540px){.hero-art{top:218px;right:0;width:86%;height:290px}.hero-art>img{width:100%;right:0;object-position:top}.hero-lede{margin-top:314px}.hero h1{font-size:54px}.hand-note{top:178px;right:10px}.stamp{left:8px;bottom:7px}.heart-outline{top:-16px;right:12px}.home-bottom strong{font-size:18px}.home-bottom a{padding:18px 10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal-ready{opacity:1;transform:none}}@media(forced-colors:active){:root{scrollbar-color:auto}.button{border:1px solid ButtonText}}
 
-/* Illustrated opening spread. Existing paper, ink and carnelian palette. */
-.starts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 30px}
-.opening{min-width:0;border:0;border-bottom:1px solid var(--ink);padding:0 0 28px;display:flex;flex-direction:column}
+/* Compact opening gallery: three cards per desktop row. */
+.starts-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 20px;max-width:900px;margin:0 auto}
+.opening{min-width:0;border:0;border-bottom:1px solid var(--line);padding:0 0 18px;display:flex;flex-direction:column}
 .opening-image{display:block;position:relative;width:100%;padding:0;overflow:hidden;border:0;background:var(--ink);cursor:zoom-in;line-height:0}
-.opening-image img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform 200ms ease-out,filter 200ms ease-out}
-.opening-expand{position:absolute;right:12px;bottom:12px;display:grid;place-items:center;width:32px;height:32px;background:var(--paper);color:var(--ink);font-size:20px;line-height:1;border:1px solid var(--ink);transition:background-color 120ms,color 120ms}
-.opening-copy{display:flex;flex-direction:column;padding-top:22px;flex:1}
-.opening-heading{display:flex;align-items:baseline;gap:18px;margin-bottom:15px}
-.opening .opening-no{font-size:40px;flex-shrink:0}
-.opening h2{font-size:30px;margin:0;line-height:1.35}
-.opening p{max-width:52ch;line-height:1.85}
-.opening .text-link{margin-top:20px}
-.opening:first-child,.opening:last-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);column-gap:36px;align-items:center}
-.opening:first-child{border-top:3px solid var(--ink);padding-top:22px}
-.opening:first-child .opening-copy,.opening:last-child .opening-copy{padding:10px 0}
-.opening:first-child .opening-heading,.opening:last-child .opening-heading{display:block}
-.opening:first-child .opening-no,.opening:last-child .opening-no{display:block;font-size:52px;margin-bottom:18px}
-.opening:first-child h2{font-size:38px;margin-bottom:18px}
-.opening:last-child{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);padding-top:12px}
-.opening:last-child .opening-image{grid-column:2;grid-row:1}
-.opening:last-child .opening-copy{grid-column:1;grid-row:1;padding-right:18px}
-.opening:last-child h2{font-size:36px;margin-bottom:18px}
+.opening-image img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform 200ms ease-out}
+.opening-expand{position:absolute;right:7px;bottom:7px;display:grid;place-items:center;width:24px;height:24px;background:var(--paper);color:var(--ink);font-size:16px;line-height:1;border:1px solid var(--ink);transition:background-color 120ms,color 120ms}
+.opening-copy{display:flex;flex-direction:column;padding-top:13px;flex:1}
+.opening-heading{display:flex;align-items:baseline;gap:9px;margin-bottom:10px}
+.opening .opening-no{font-size:25px;flex-shrink:0}
+.opening h2{font-size:23px;margin:0;line-height:1.35}
+.opening p{font-size:14px;line-height:1.8}
+.opening .text-link{margin-top:14px;font-size:11px}
 .opening-lightbox{padding:14px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);max-width:min(1160px,94vw);max-height:94dvh;overflow:auto}
 .opening-lightbox::backdrop{background:#171717dc}
 .opening-lightbox form{display:flex;justify-content:flex-end;margin:0 0 12px}
@@ -44,8 +34,7 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 .opening-lightbox figcaption{font-family:var(--display);font-size:23px;padding:12px 4px 2px}
 @media(hover:hover) and (pointer:fine){.opening-image:hover img{transform:scale(1.025)}.opening-image:hover .opening-expand,.opening-lightbox-close:hover{background:var(--ink);color:var(--paper)}}
 .opening-image.is-pressed img{transform:scale(1.015)}
-@media(max-width:900px){.opening:first-child{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);column-gap:24px}.opening:first-child h2{font-size:30px}.opening h2{font-size:26px}.opening-heading{gap:12px}.opening p{font-size:14px}}
-@media(max-width:600px){.starts-grid{grid-template-columns:1fr;gap:30px}.opening{padding-bottom:24px}.opening:first-child,.opening:last-child{display:flex;grid-column:auto;gap:0}.opening:first-child{padding-top:16px}.opening-copy,.opening:first-child .opening-copy,.opening:last-child .opening-copy{padding:18px 0 0}.opening-heading,.opening:first-child .opening-heading,.opening:last-child .opening-heading{display:flex;align-items:baseline;gap:14px;margin-bottom:12px}.opening .opening-no,.opening:first-child .opening-no,.opening:last-child .opening-no{font-size:36px;margin:0}.opening h2,.opening:first-child h2,.opening:last-child h2{font-size:27px;margin:0}.opening p{font-size:14px;line-height:1.9}.opening .text-link{font-size:12px;margin-top:16px}.opening-expand{right:10px;bottom:10px;width:30px;height:30px}.opening-lightbox{padding:10px;max-width:96vw}.opening-lightbox figcaption{font-size:20px}.opening-lightbox img{max-height:70dvh}}
+@media(max-width:700px){.starts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.opening h2{font-size:20px}.opening .opening-no{font-size:23px}.opening-heading{gap:7px}.opening p{font-size:13px}.opening-lightbox{padding:10px;max-width:96vw}.opening-lightbox figcaption{font-size:20px}.opening-lightbox img{max-height:70dvh}}
 @media(prefers-reduced-motion:reduce){.opening-image img{transition:none}}
 
 /* Modern setting editorial illustration */
