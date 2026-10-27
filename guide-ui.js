@@ -241,7 +241,12 @@
       preview.append(make('p', 'guide-note', '예시 상태입니다. 펼치기와 명령어 버튼을 눌러 볼 수 있으며 실제 채팅에는 전송되지 않습니다.'));
       const stage = make('div', 'status-preview-stage'); preview.append(stage); panel.append(preview);
       window.SH_STATUS_PREVIEW?.mount(stage, platform);
-      const fields = card('상태값'); list(fields, data.fields);
+      const calendar = card('월별 정기 일정');
+    list(calendar, data.calendar || []);
+    calendar.append(make('p', 'guide-note', '장면 날짜를 기준으로 준비 기간과 당일 로어가 연결됩니다. 정기 일정표는 참석·선물·진행을 확정하지 않으며 장면에서 바뀐 약속이 우선합니다.'));
+    panel.append(calendar);
+
+    const fields = card('상태값'); list(fields, data.fields);
       panel.append(fields, copyBlock(platform === 'nody' ? '기본 상태 JSON' : '기본 호출문', data.basic), copyBlock('입력 예시', data.example));
       if (data.recoveryUrl) { const recovery = card('상태창 복원'); externalLink(recovery, '복원 안내 보기', data.recoveryUrl); panel.append(recovery); }
     },
