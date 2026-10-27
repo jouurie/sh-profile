@@ -134,7 +134,7 @@ body{font-size:15px;line-height:1.7}
 .page-title{margin-bottom:28px;padding-bottom:22px}.page-title h1{font-size:36px}.page-title p{margin-top:10px;font-size:13px;line-height:1.65}
 .reading-copy{font-size:14px;line-height:1.75}.reading-copy p+p{margin-top:12px}.world-lead{margin-bottom:28px}
 .file-section{margin-bottom:28px}.file-section>h2{font-size:24px;margin-bottom:14px;padding-bottom:8px}
-.text-block+.text-block{margin-top:14px}.text-block h3{font-size:14px;margin-bottom:8px}.text-block p{font-size:14px;line-height:1.75;margin:5px 0}
+.text-block+.text-block{margin-top:14px}.text-block h3{font-size:14px;margin-bottom:8px}.text-block p{font-size:14px;line-height:1.75;margin:0}.text-block p+p{margin-top:12px}
 .name-line strong{font-size:40px}.hero h1.sh-hook{font-size:36px;line-height:1.15}.hero-lede{font-size:16px;line-height:1.65}.approval dd{font-size:19px}
 .red-band p{font-size:22px}.intro-title p{font-size:32px}.section-heading h2{font-size:28px}.home-bottom strong{font-size:21px}
 .person h2{font-size:21px}.person p{font-size:13px;line-height:1.75}.person p+p{margin-top:6px}.opening h2{font-size:19px}.opening p{line-height:1.75}
