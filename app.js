@@ -25,3 +25,34 @@ const clearPress=()=>{pressed?.classList.remove('is-pressed');pressed=null};
 document.addEventListener('pointerup',clearPress,{passive:true});document.addEventListener('pointercancel',clearPress,{passive:true});window.addEventListener('blur',clearPress);
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches)document.querySelectorAll('.reveal-ready').forEach(el=>el.classList.add('is-visible'))});
 })();
+
+// Subtle per-item response, shared with the character panels.
+(() => {
+  let active = null;
+  const clear = () => {
+    if (!active) return;
+    active.node.style.backgroundColor = active.background;
+    active.node.style.transition = active.transition;
+    active = null;
+  };
+  const target = event => {
+    if (event.target.closest('button,a,summary,input,textarea,select')) return null;
+    for (let node = event.target; node && node !== document.body; node = node.parentElement) {
+      if (!node.matches('main *,header *,footer *')) return null;
+      if (node.matches('img,svg') || [...node.childNodes].some(child => child.nodeType === 3 && child.textContent.trim())) return node;
+    }
+    return null;
+  };
+  const show = (event, pressed = false) => {
+    const node = target(event);
+    if (!node) { clear(); return; }
+    if (active?.node !== node) { clear(); active = {node, background:node.style.backgroundColor, transition:node.style.transition}; }
+    node.style.transition = 'background-color .14s ease';
+    node.style.backgroundColor = node.closest('.red-band') ? (pressed ? 'rgba(255,255,255,.18)' : 'rgba(255,255,255,.1)') : (pressed ? 'rgba(182,64,44,.09)' : 'rgba(182,64,44,.045)');
+  };
+  document.addEventListener('pointerover', event => { if(event.pointerType !== 'touch') show(event); }, {passive:true});
+  document.addEventListener('pointerdown', event => show(event,true), {passive:true});
+  document.addEventListener('pointerup', event => { if(event.pointerType === 'touch') clear(); else show(event); }, {passive:true});
+  document.addEventListener('pointercancel', clear, {passive:true});
+  document.documentElement.addEventListener('pointerleave', clear, {passive:true});
+})();
