@@ -108,7 +108,7 @@
       }else{td.append(modelValue(row.value));if(title==='추론 조절')notes.push(...row.notes);else row.notes.forEach(n=>td.append(make('small','',n)));}
       tr.append(th, td); body.append(tr);
     });
-    table.append(body); section.append(table);
+    if (body.childElementCount) { table.append(body); section.append(table); }
     if (notes.length) {
       const notice = make('aside', 'guide-model-notes');
       if (title === '추론 조절') notice.append(make('h4', '', '기본값'));
@@ -119,7 +119,7 @@
 
   const panel = $('#guide-panel'), tabBar = $('#guide-tabs');
   if (!panel || !tabBar) return;
-  const platformSelections = { settings: null, recovery: null };
+  const platformSelections = { settings: null, recovery: null, status: null };
   function platformSection(section, title) {
     const selected = platformSelections[section], platforms = make('nav', 'settings-platforms');
     platforms.setAttribute('aria-label', title + ' 플랫폼');
@@ -211,7 +211,9 @@
       const features = rowsFromBlock(blocks[2]).map(row => row.label + ': ' + row.notes.join('\n↳ ')).join('\n');
       model.append(tableBlock('모델별 특징\n' + features));
       model.append(tableBlock('참고\n' + rowsFromBlock(blocks[4]).filter(row => !row.label).map(row => row.value).join('\n'))); panel.append(model);
-      const link = make('p'); link.append(document.createTextNode('공통 기본값과 모델별 추론 조절: '), disclosureLink('추천 설정값', 'guide-recommended')); panel.append(link);
+      const links = make('section', 'guide-reference-links');
+      links.append(make('h3', '', '공통 기본값 · 모델별 추론'));
+      const link = make('p'); link.append(disclosureLink('추천 설정값 보기', 'guide-recommended')); links.append(link); panel.append(links);
     },
     output() {
       if (!platformSection('settings', '출력 가이던스')) return;
@@ -227,9 +229,22 @@
     commands() {
       const intro = card('명령어'); list(intro, guide('명령어')); panel.append(intro);
       const groups = [ ['장면 이어가기', ['!이어서', '!잠시후', '!사건', '!이벤트']], ['분위기 조절', ['!장면고조', '!장면완화', '!회복', '!스킵']], ['기록과 시간', ['!보고서', '!다음날', '!다음달']] ];
-      const grid = make('div', 'command-guide-grid'); groups.forEach(([title, names]) => { const c = card(title); names.forEach(name => { const command = d.commands.find(x => x.command === name), row = make('div', 'command-explainer'); const variants = make('div', 'command-variants'); [['엘린', command.command]].forEach(([platform, value]) => { const pair = make('div', 'command-platform-pair'); pair.append(make('span', 'command-platform-label', platform), make('code', '', value)); variants.append(pair); }); row.append(variants, make('span', 'command-description', command.description)); c.append(row); }); grid.append(c); }); panel.append(grid, make('p', 'guide-note', '실제 채팅에서는 클릭 시 1턴이 소모됩니다. 직접 입력도 가능합니다.'));
+      const grid = make('div', 'command-guide-grid'); groups.forEach(([title, names]) => { const c = card(title); names.forEach(name => { const command = d.commands.find(x => x.command === name), row = make('div', 'command-explainer'); const variants = make('div', 'command-variants'); [['엘린', command.command], ['노디', command.command.replace(/^!/, '/')]].forEach(([platform, value]) => { const pair = make('div', 'command-platform-pair'); pair.append(make('span', 'command-platform-label', platform), make('code', '', value)); variants.append(pair); }); row.append(variants, make('span', 'command-description', command.description)); c.append(row); }); grid.append(c); }); panel.append(grid, make('p', 'guide-note', '실제 채팅에서는 클릭 시 1턴이 소모됩니다. 직접 입력도 가능합니다.'));
     },
-    status() { panel.append(make('p','guide-note','엘린 SHStatus 기준입니다.')); const intro = card('상태창 읽는 법'); list(intro, guide('상태창 안내')); panel.append(intro); },
+    status() {
+      if (!platformSection('status', '상태창')) return;
+      const platform = platformSelections.status, data = window.SH_STATUS_GUIDE?.[platform];
+      if (!data) { panel.append(make('p', 'guide-note', '상태창 안내를 불러오지 못했습니다.')); return; }
+      const intro = card('상태창 읽는 법'); list(intro, data.summary); panel.append(intro);
+      const preview = card('실제 상태창 미리보기');
+      preview.dataset.reveal = 'true';
+      preview.append(make('p', 'guide-note', '예시 상태입니다. 펼치기와 명령어 버튼을 눌러 볼 수 있으며 실제 채팅에는 전송되지 않습니다.'));
+      const stage = make('div', 'status-preview-stage'); preview.append(stage); panel.append(preview);
+      window.SH_STATUS_PREVIEW?.mount(stage, platform);
+      const fields = card('상태값'); list(fields, data.fields);
+      panel.append(fields, copyBlock(platform === 'nody' ? '기본 상태 JSON' : '기본 호출문', data.basic), copyBlock('입력 예시', data.example));
+      if (data.recoveryUrl) { const recovery = card('상태창 복원'); externalLink(recovery, '복원 안내 보기', data.recoveryUrl); panel.append(recovery); }
+    },
     transfer() {
       if (!platformSection('recovery', '채팅방 이전 안내')) return;
       const when = card('사용 시점'); list(when, ["대화가 길어져 맥락이 흐려졌을 때","새 채팅방에서 이어가고 싶을 때"]);
@@ -242,8 +257,7 @@
       const when = card('사용 시점');
       list(when, guide('상태창 복원').filter(x => !x.startsWith('http') && !x.startsWith('🔗') && x !== '사용 시점'));
       const more = card('상태창 복원 안내 + 가이드');
-      if (platformSelections.recovery === 'nody') paragraphs(more, '세혁의 노디 전용 복원 안내는 준비 중입니다.');
-      else externalLink(more, '지침 보기', guide('상태창 복원').find(x => x.startsWith('http')));
+      externalLink(more, '지침 보기', window.SH_STATUS_GUIDE?.[platformSelections.recovery]?.recoveryUrl || guide('상태창 복원').find(x => x.startsWith('http')));
       panel.append(when, more);
     }
   };
@@ -295,7 +309,7 @@
     });
   }
   function select(key, focus) {
-    active = key; panel.style.minHeight=''; panel.replaceChildren(); buttons.forEach(b => { const selected = b.dataset.guideItem === key; b.setAttribute('aria-selected', String(selected)); b.tabIndex = selected ? 0 : -1; });
+    active = key; panel.style.minHeight=''; window.SH_STATUS_PREVIEW?.dispose(); panel.replaceChildren(); buttons.forEach(b => { const selected = b.dataset.guideItem === key; b.setAttribute('aria-selected', String(selected)); b.tabIndex = selected ? 0 : -1; });
     const selected = buttons.find(b => b.dataset.guideItem === key); panel.setAttribute('aria-labelledby', selected.id); renderers[key](); packSettingTables(); foldLongTables();
     const state = $('#status'); if (state) state.hidden = key !== 'status'; if (focus) selected.focus();
   }

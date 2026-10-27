@@ -31,10 +31,10 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 .opening-lightbox form{display:flex;justify-content:flex-end;margin:0 0 12px}
 .opening-lightbox-close{padding:7px 14px;font-size:13px;border:1px solid var(--ink);min-height:40px}
 .opening-lightbox figure{margin:0}.opening-lightbox img{max-height:76dvh;max-width:100%;width:auto;margin:auto;object-fit:contain}
-.opening-lightbox figcaption{font-family:var(--display);font-size:23px;padding:12px 4px 2px}
+
 @media(hover:hover) and (pointer:fine){.opening-image:hover img{transform:scale(1.025)}.opening-image:hover .opening-expand,.opening-lightbox-close:hover{background:var(--ink);color:var(--paper)}}
 .opening-image.is-pressed img{transform:scale(1.015)}
-@media(max-width:700px){.starts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.opening h2{font-size:20px}.opening .opening-no{font-size:23px}.opening-heading{gap:7px}.opening p{font-size:13px}.opening-lightbox{padding:10px;max-width:96vw}.opening-lightbox figcaption{font-size:20px}.opening-lightbox img{max-height:70dvh}}
+@media(max-width:700px){.starts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.opening h2{font-size:20px}.opening .opening-no{font-size:23px}.opening-heading{gap:7px}.opening p{font-size:13px}.opening-lightbox{padding:10px;max-width:96vw}.opening-lightbox img{max-height:70dvh}}
 @media(prefers-reduced-motion:reduce){.opening-image img{transition:none}}
 
 /* Modern setting editorial illustration */
@@ -46,3 +46,53 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 :is(button:not(:disabled),summary,a[href]):focus-visible{box-shadow:0 3px 8px rgba(23,23,23,.14)}
 :is(button:not(:disabled),summary,a[href]):is(:active,.is-pressed){transform:translateY(1px) scale(.98);filter:brightness(.92)}
 @media(prefers-reduced-motion:reduce){:is(button,summary,a[href]){transition:none!important;transform:none!important}}
+/* Match the verified I-gyeol 770px outer shell and reflow its contents. */
+.site-shell{max-width:770px;padding-inline:24px}
+.site-header{height:auto;min-height:96px;gap:20px}
+.brand{font-size:20px;gap:9px}.brand svg{width:29px;height:29px}.brand small{font-size:8px}
+.site-header nav{gap:14px}.site-header nav a{font-size:11px}
+.hero-copy{padding:24px 16px 28px 24px}.name-line{gap:12px;margin-bottom:20px}
+.name-line strong{font-size:44px}.name-line>span{font-size:13px;padding-left:12px}
+.hero h1.sh-hook{font-size:40px;line-height:1.12}
+.hero-lede{font-size:17px;line-height:1.65;margin-top:24px}.hero-caption{font-size:12px}
+.tags{gap:5px;margin-top:16px}.tags span{padding:2px 8px;font-size:9px}
+.approval{grid-template-columns:72px 1fr;margin-top:20px}.approval dt,.approval dd{padding:8px 10px}
+.approval dt{font-size:11px}.approval dd{font-size:21px}.approval dd small{display:block;margin:0;font-size:11px}
+.hero-actions{gap:8px;margin-top:20px}.hero-actions .button{padding:9px 12px;font-size:12px;gap:8px}
+.hero-art>img{width:100%;right:0}.hand-note{font-size:20px;right:8px}
+.stamp{width:92px;height:92px;left:-8px;bottom:28px}.stamp>span{font-size:12px}.stamp svg{width:26px;height:26px}.stamp small{font-size:7px}
+.red-band{padding:16px 20px;gap:12px}.red-band>span{font-size:11px;flex-shrink:0}
+.red-band p{font-size:24px;line-height:1.5;text-wrap:balance}.red-band svg{flex-shrink:0;width:16px;height:16px}
+.intro-grid{grid-template-columns:30% minmax(0,1fr);gap:24px}.intro-title p{font-size:38px}.reading-copy{font-size:15px}
+.home-bottom a{padding:20px 16px}.home-bottom strong{font-size:23px}.page-title h1{font-size:42px}
+.dossier{grid-template-columns:30% minmax(0,1fr);gap:28px}.profile-photo>div{font-size:18px;padding:16px}
+.world-art img{height:auto;aspect-ratio:3/2}.world-grid{grid-template-columns:1fr;gap:0}
+.ideas-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.people-grid{gap:0 24px}
+.person{grid-template-columns:44px minmax(0,1fr);gap:14px}.person-mark{height:58px;font-size:28px}.person h2{font-size:24px}
+.starts-grid{gap:24px 18px}.opening-heading{align-items:baseline;gap:7px}.opening h2{font-size:21px;text-wrap:balance}.opening p{font-size:13px}
+.guide-layout{grid-template-columns:148px minmax(0,1fr);gap:24px}.guide-nav-items button{font-size:12px;padding:10px 8px}.guide-nav-title{font-size:11px}
+.guide-model-operation .guide-table th{width:68px}.guide-model-features .guide-table th{width:150px}
+.guide-table th,.guide-table td{padding:12px 10px;font-size:13px}.guide-table th{width:32%}
+.guide-table th,.guide-model-section h3,.guide-card h3{text-wrap:balance}
+.guide-card-grid,.play-tip-grid,.command-guide-grid{gap:0 20px}.settings-table-grid{grid-template-columns:1fr}
+.settings-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.setting-metric{padding:16px 8px}.setting-metric strong{font-size:22px}
+.guide-reference-links{margin-top:24px}.guide-reference-links>h3{font:21px var(--display);padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:16px}
+.guide-reference-links p{font-size:14px;line-height:1.9}
+@media(max-width:800px){
+ .site-header{padding-top:20px;gap:16px}.site-header nav{width:100%;justify-content:space-between;gap:8px}.site-header nav a{padding-bottom:12px}
+ .guide-layout{grid-template-columns:1fr;gap:24px}#guide-tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+}
+@media(max-width:650px){
+ .site-shell{padding-inline:16px}.guide-model-features .guide-table th{width:35%}.guide-card-grid,.play-tip-grid,.command-guide-grid{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+ .hero-copy{padding:20px 16px 24px}.hero h1.sh-hook{font-size:clamp(32px,9vw,48px)}
+ .hero-art{top:218px;right:0;width:86%;height:290px}.hero-art>img{width:100%;right:0;object-position:top}
+ .hero-lede{margin-top:314px;font-size:17px}.hand-note{top:178px;right:10px}.stamp{left:8px;bottom:7px;width:70px;height:70px}
+ .stamp>span{font-size:9px}.stamp svg{width:21px;height:21px}.stamp small{font-size:6px}
+ .red-band{padding:16px 12px}.red-band>span{display:none}.red-band p{font-size:20px}
+ .intro-grid{grid-template-columns:1fr;gap:0}.intro-title p{font-size:35px}.home-bottom strong{font-size:18px}.home-bottom a{padding:18px 10px}
+ .page-title h1{font-size:36px}.dossier{display:block}.ideas-grid,.people-grid{grid-template-columns:1fr}
+ #guide-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-nav-items button{font-size:12px}
+ .settings-metrics{grid-template-columns:1fr}.setting-metric{padding:12px}.setting-metric strong{font-size:26px}
+}
