@@ -128,3 +128,17 @@ a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out
 @media(prefers-reduced-motion:reduce){.hero h1 .hook-reveal i{transition:none}}
 
 .person-mark img{width:100%;height:100%;min-height:0;object-fit:contain}
+
+/* Compact type rhythm shared by desktop and mobile reading surfaces. */
+body{font-size:15px;line-height:1.7}
+.page-title{margin-bottom:28px;padding-bottom:22px}.page-title h1{font-size:36px}.page-title p{margin-top:10px;font-size:13px;line-height:1.65}
+.reading-copy{font-size:14px;line-height:1.75}.reading-copy p+p{margin-top:12px}.world-lead{margin-bottom:28px}
+.file-section{margin-bottom:28px}.file-section>h2{font-size:24px;margin-bottom:14px;padding-bottom:8px}
+.text-block+.text-block{margin-top:14px}.text-block h3{font-size:14px;margin-bottom:8px}.text-block p{font-size:14px;line-height:1.75;margin:5px 0}
+.name-line strong{font-size:40px}.hero h1.sh-hook{font-size:36px;line-height:1.15}.hero-lede{font-size:16px;line-height:1.65}.approval dd{font-size:19px}
+.red-band p{font-size:22px}.intro-title p{font-size:32px}.section-heading h2{font-size:28px}.home-bottom strong{font-size:21px}
+.person h2{font-size:21px}.person p{font-size:13px;line-height:1.75}.person p+p{margin-top:6px}.opening h2{font-size:19px}.opening p{line-height:1.75}
+.guide-card,.guide-model-section{margin-bottom:24px}.guide-card>h3,.guide-model-section>h3,.guide-table-disclosure>summary{font-size:19px;margin-bottom:12px}
+.guide-card p,.guide-note,.guide-instructions,.guide-list,.guide-model-notes,.guide-reference-links p{font-size:13px;line-height:1.75}.guide-card p+p{margin-top:7px}
+.guide-table th,.guide-table td{font-size:12.5px;line-height:1.7}.guide-reference-links>h3{font-size:19px}
+@media(max-width:540px){body{font-size:14px}.page-title h1{font-size:30px}.page-title{padding-bottom:18px;margin-bottom:24px}.page-title p{font-size:12px}.hero h1.sh-hook{font-size:clamp(29px,8vw,36px)}.hero-lede{font-size:15px}.intro-title p{font-size:29px}.file-section>h2{font-size:22px}.text-block p,.reading-copy{font-size:13px}.person h2{font-size:20px}.person p{font-size:12.5px}.red-band p{font-size:19px}}
