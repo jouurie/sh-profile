@@ -142,3 +142,5 @@ body{font-size:15px;line-height:1.7}
 .guide-card p,.guide-note,.guide-instructions,.guide-list,.guide-model-notes,.guide-reference-links p{font-size:13px;line-height:1.75}.guide-card p+p{margin-top:7px}
 .guide-table th,.guide-table td{font-size:12.5px;line-height:1.7}.guide-reference-links>h3{font-size:19px}
 @media(max-width:540px){body{font-size:14px}.page-title h1{font-size:30px}.page-title{padding-bottom:18px;margin-bottom:24px}.page-title p{font-size:12px}.hero h1.sh-hook{font-size:clamp(29px,8vw,36px)}.hero-lede{font-size:15px}.intro-title p{font-size:29px}.file-section>h2{font-size:22px}.text-block p,.reading-copy{font-size:13px}.person h2{font-size:20px}.person p{font-size:12.5px}.red-band p{font-size:19px}}
+
+.text-block h3{color:var(--red);font-weight:700}
