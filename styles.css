@@ -144,3 +144,16 @@ body{font-size:15px;line-height:1.7}
 @media(max-width:540px){body{font-size:14px}.page-title h1{font-size:30px}.page-title{padding-bottom:18px;margin-bottom:24px}.page-title p{font-size:12px}.hero h1.sh-hook{font-size:clamp(29px,8vw,36px)}.hero-lede{font-size:15px}.intro-title p{font-size:29px}.file-section>h2{font-size:22px}.text-block p,.reading-copy{font-size:13px}.person h2{font-size:20px}.person p{font-size:12.5px}.red-band p{font-size:19px}}
 
 .text-block h3{color:var(--red);font-weight:700}
+
+/* Equal divider baselines and monthly status schedule. */
+.settings-comparison > .guide-model-section{display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:0}
+.settings-comparison > .guide-model-section > h3{align-self:stretch}
+.status-calendar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 18px}
+.status-calendar-month{min-width:0}
+.status-calendar-month h4{font-family:var(--display);font-size:17px;margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--ink)}
+.status-calendar-table{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.65}
+.status-calendar-table th,.status-calendar-table td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:7px 0}
+.status-calendar-table th{width:46px;padding-right:8px;white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
+.status-calendar-table td{word-break:keep-all;overflow-wrap:anywhere}
+@media(max-width:1200px){.status-calendar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.settings-comparison > .guide-model-section{display:block;grid-row:auto}.status-calendar-grid{grid-template-columns:1fr;gap:20px}.status-calendar-table{font-size:13px}}

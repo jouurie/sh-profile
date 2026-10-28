@@ -142,7 +142,7 @@
       settingsList(budget, ["로어북은 키워드가 나올 때만 꺼내 쓰는 설정입니다.","로어북 예산은 한 번의 답변에 가져올 수 있는 로어북 내용의 글자수 한도이며, 캐시 금액이 아닙니다.","내용이 예산 한도로 잘리지 않도록 최대로 설정하는 것을 권장합니다. 예산을 늘리면 더 많은 설정을 담는 대신 매 턴 캐시 사용량도 늘 수 있습니다.","권장 예산: 하단 [ ⭐ 모델 추천 ]을 참고하세요."]); panel.append(budget);
     } else if (active === 'recommended') {
       panel.append(settingsPath('채팅방 설정 → 대화'));
-      const options = make('div', 'guide-card-grid');
+      const options = make('div', 'guide-card-grid settings-comparison');
       options.append(tableBlock("사칭 방지 플레이\n내 캐릭터 대신 하기 (사칭): 살짝"),tableBlock("사칭 플레이 (/이어서, *이어서* 위주)\n내 캐릭터 대신 하기 (사칭): 적극")); panel.append(options);
       panel.append(tableBlock("답변\n출력량: 길게\n최대 출력량: 6,000토큰\n응답 품질: 높음\n로어북 예산: 50,000자\n출력 속도: 즉시"));
       panel.append(make('p', 'guide-note', "응답 품질은 답변 전에 점검하는 항목 수입니다. 노디 안내 기준 낮음은 3개, 보통은 4개, 높음은 5개이며, 모델 자체의 추론 예산과 같은 수치로 볼 수는 없습니다. 설정과 앞선 대화를 더 챙기도록 모델 공통으로 높음을 권장합니다. 모델별 최적값이나 최저비용을 검증한 값은 아니며, 답변이 느려지고 캐시 사용량이 늘 수 있습니다. 높음도 상태창과 기억의 정확성을 보장하지는 않습니다."));
@@ -252,7 +252,19 @@
       const stage = make('div', 'status-preview-stage'); preview.append(stage); panel.append(preview);
       window.SH_STATUS_PREVIEW?.mount(stage, platform);
       const calendar = card('월별 정기 일정');
-    list(calendar, data.calendar || []);
+    const months = make('div', 'status-calendar-grid');
+    for (let month = 1; month <= 12; month++) {
+      const entries = (data.calendar || []).filter(text => Number(text.slice(0, 2)) === month);
+      const section = make('section', 'status-calendar-month'), heading = make('h4', '', month + '월');
+      const table = make('table', 'status-calendar-table'), body = make('tbody');
+      table.setAttribute('aria-label', month + '월 정기 일정');
+      entries.forEach(text => {
+        const row = make('tr'), date = make('th', '', text.slice(0, 5)), event = make('td', '', text.slice(6));
+        date.scope = 'row'; row.append(date, event); body.append(row);
+      });
+      table.append(body); section.append(heading, table); months.append(section);
+    }
+    calendar.append(months);
     calendar.append(make('p', 'guide-note', '장면 날짜를 기준으로 준비 기간과 당일 로어가 연결됩니다. 정기 일정표는 참석·선물·진행을 확정하지 않으며 장면에서 바뀐 약속이 우선합니다.'));
     panel.append(calendar);
 
