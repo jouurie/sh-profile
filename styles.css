@@ -213,8 +213,13 @@ body{font-size:15px;line-height:1.7}
 /* Matching pointer and touch feedback for home tags and reservation note. */
 .tags span.is-touch-active{background:var(--paper);color:var(--ink)}
 .hand-note{pointer-events:auto;touch-action:pan-y;transition:transform 180ms ease-out;transform-origin:50% 50%}
-@media(hover:hover) and (pointer:fine){.hand-note:hover{transform:rotate(5deg)}}
-.hand-note.is-touch-active{transform:rotate(5deg)}
+@media(hover:hover) and (pointer:fine){.hand-note:hover{transform:rotate(-3deg) translateY(-3px)}}
+.hand-note.is-touch-active{transform:rotate(-3deg) translateY(-3px)}
 @media(prefers-reduced-motion:reduce){.hand-note{transition:none}.hand-note:hover,.hand-note.is-touch-active{transform:rotate(9deg)}}
 
 @media(max-width:540px){.hero-copy{pointer-events:none}.hero-copy>*{pointer-events:auto}}
+
+/* Visible feedback using the existing ink, paper and red palette. */
+.tags span{transition:color 120ms ease-out,background-color 120ms ease-out,border-color 120ms ease-out,box-shadow 120ms ease-out,transform 120ms ease-out}
+@media(hover:hover) and (pointer:fine){.tags span:hover{background:var(--paper);color:var(--ink);border-color:var(--ink);box-shadow:2px 2px 0 var(--red);transform:translateY(-2px)}}
+.tags span.is-touch-active{background:var(--paper);color:var(--ink);border-color:var(--ink);box-shadow:2px 2px 0 var(--red);transform:translateY(-2px)}
