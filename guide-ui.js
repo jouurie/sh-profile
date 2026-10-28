@@ -188,7 +188,29 @@
       const tips = make('div', 'play-tip-grid'); guide('플레이 팁').forEach(line => { const pieces = line.split(' → '); tips.append(card(pieces[0], pieces.slice(1).join(' → '))); }); panel.append(tips);
     },
     examples() {
-      const examples = card('상황 아이디어 · 17가지'), grid = make('ol', 'play-ideas'); guide('추천 플레이').forEach(line => grid.append(make('li', '', line))); examples.append(grid); panel.append(examples);
+      const examples = card('상황 아이디어 · 17가지'), grid = make('ol', 'play-ideas'); guide('추천 플레이').forEach((line, index) => {
+        const item = make('li', '', line);
+        if (index === 0) {
+          const trigger = make('button', 'mascot-note-trigger', '마스코트 지침');
+          trigger.type = 'button';
+          trigger.setAttribute('popovertarget', 'mascot-guidance');
+          trigger.setAttribute('aria-label', '마스코트 필수 지침 열기');
+          const popup = make('div', 'mascot-guidance');
+          popup.id = 'mascot-guidance';
+          popup.setAttribute('popover', 'auto');
+          popup.setAttribute('role', 'dialog');
+          popup.setAttribute('aria-labelledby', 'mascot-guidance-title');
+          const heading = make('h3', '', '마스코트 플레이 필수 지침');
+          heading.id = 'mascot-guidance-title';
+          const close = make('button', 'mascot-guidance-close', '닫기');
+          close.type = 'button';
+          close.setAttribute('popovertarget', 'mascot-guidance');
+          close.setAttribute('popovertargetaction', 'hide');
+          popup.append(heading, make('p', '', '유저를 성적 대상으로 보지 않고, 성적 묘사나 접촉 없이 진행한다.'), close);
+          item.append(document.createTextNode(' '), trigger, popup);
+        }
+        grid.append(item);
+      }); examples.append(grid); panel.append(examples);
     },
     budget() { if (!platformSection('settings', '로어북 예산')) return; const budget = card('로어북 예산'); settingsList(budget, source('로어북 예산 안내').split('\n')); panel.append(budget); },
     recommended() {
