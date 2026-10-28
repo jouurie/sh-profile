@@ -7,9 +7,9 @@
 @container tag-list (max-width:440px){#intro .balanced-tags>.tag-row>.kw-chip{font-size:11px;line-height:1.5;padding:3px 5px}}
 @container tag-list (max-width:320px){.tag-row{--tag-gap:4px}#intro .balanced-tags>.tag-row>.kw-chip{font-size:10.5px;padding-inline:4px}}
 @container tag-list (max-width:280px){.tag-row{--tag-gap:3px}#intro .balanced-tags>.tag-row>.kw-chip{font-size:10px;padding-inline:3px}}
-</style></head>
+</style><link rel="stylesheet" href="music-player.css?v=20261029-sh1"><script src="music-data.js?v=20261029-sh1" defer></script><script src="youtube-engine.js?v=20261029-sh1" defer></script><script src="music-player.js?v=20261029-sh1" defer></script></head>
 <body><a class="skip" href="#main">본문으로</a><div class="site-shell">
-<header class="site-header"><a class="brand" href="#home" aria-label="권세혁 홈"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 35 4 19C-5 5 13 0 20 12 27 0 45 5 36 19Z"/></svg><span>SEOJIN TECH<small>SECRETARY OFFICE · 비서실</small></span></a><nav aria-label="메인 메뉴"><a href="#home">홈</a><a href="#profile">프로필</a><a href="#world">세계관</a><a href="#people">주변 인물</a><a href="#starts">시작 상황</a><a href="#guide">이용 가이드</a></nav></header>
+<header class="site-header"><a class="brand" href="#home" aria-label="권세혁 홈"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 35 4 19C-5 5 13 0 20 12 27 0 45 5 36 19Z"/></svg><span>SEOJIN TECH<small>SECRETARY OFFICE · 비서실</small></span></a><nav aria-label="메인 메뉴"><a href="#home">홈</a><a href="#profile">프로필</a><a href="#world">세계관</a><a href="#people">주변 인물</a><a href="#starts">시작 상황</a><a href="#guide">이용 가이드</a><a href="#playlist">플레이리스트</a></nav></header>
 <main id="main">
 <section id="home" class="view home-view">
 <div class="hero-document"><div class="document-top"><span>SEOJIN TECH / EXECUTIVE OFFICE</span><span>비서실 열람용</span></div>
@@ -24,4 +24,15 @@
 <section id="people" class="view" hidden><div class="page-title"><span>PERSONNEL DIRECTORY</span><h1>일로 만난 사이</h1><p>눈치 빠른 동료들과 참견 많은 가족들을 소개합니다.</p></div><div id="people-content" class="people-grid"></div></section>
 <section id="starts" class="view" hidden><div class="page-title"><span>YOUR FIRST DAY</span><h1>어디서부터 시작할까요?</h1><p>다섯 가지 상황 중 하나를 고르거나, 직접 첫 장면을 정해 보세요.</p></div><div id="starts-content" class="starts-grid"></div></section>
 <section id="guide" class="view page-guide" hidden><div class="page-title"><span>OFFICE HANDBOOK</span><h1>출근 전 읽어주세요.</h1><p>플레이 방법부터 플랫폼별 설정, 기억과 상태창까지 안내합니다.</p></div><div class="guide-layout"><div id="guide-tabs" role="tablist" aria-label="가이드 메뉴"></div><div id="guide-panel" role="tabpanel" tabindex="0"></div></div></section>
-</main><footer><a href="#home">권세혁 <span>SEOJIN TECH · SECRETARY OFFICE</span></a><button id="back-top" type="button" aria-label="맨 위로">↑</button></footer></div></body></html>
+<section id="playlist" class="view page-music" hidden>
+<div class="page-title"><h1>플레이리스트</h1><p>권세혁의 12곡. 원하는 곡을 골라 들을 수 있습니다.</p></div>
+<div class="music-sheet"><div class="music-sheet-heading"><h2>재생 목록</h2><span>12 TRACKS</span></div>
+<div class="music-layout"><div class="player">
+<div class="record-sleeve" aria-hidden="true"><svg class="record-disc" viewBox="0 0 220 220"><circle class="record-body" cx="110" cy="110" r="106"/><g class="record-grooves" fill="none"><circle cx="110" cy="110" r="96"/><circle cx="110" cy="110" r="88"/><circle cx="110" cy="110" r="80"/><circle cx="110" cy="110" r="72"/><circle cx="110" cy="110" r="64"/></g><circle class="record-label" cx="110" cy="110" r="48"/><text x="110" y="99" text-anchor="middle">SEHYUK</text><path class="record-rule" d="M78 116h64"/><text class="record-side" x="110" y="137" text-anchor="middle">SIDE A</text><circle class="record-hole" cx="110" cy="110" r="4"/></svg></div>
+<div class="selected-track"><span id="track-number">01</span><div><h3 id="track-title"></h3><p id="track-artist"></p></div></div>
+<div class="player-controls"><button id="track-prev" type="button" aria-label="이전 곡"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14m12-14L8 12l10 7z"/></svg></button><button id="track-play" type="button" aria-label="재생" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg></button><button id="track-next" type="button" aria-label="다음 곡"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 5l10 7-10 7z"/></svg></button></div>
+<div class="track-timeline"><span id="track-elapsed">0:00</span><input id="track-seek" type="range" min="0" max="100" step=".1" value="0" aria-label="재생 위치" disabled><span id="track-duration">0:00</span></div>
+<div class="track-volume"><button id="track-mute" type="button" aria-label="음소거" aria-pressed="false" aria-controls="track-volume" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3v10l-4-3H3z"/><path class="track-sound-waves" d="M13 7a4 4 0 0 1 0 6m2-8a7 7 0 0 1 0 10"/><path class="track-sound-off" d="m13 8 4 4m0-4-4 4"/></svg></button><input id="track-volume" type="range" min="0" max="100" step="1" value="50" aria-label="음량" disabled><span id="track-volume-value">50%</span></div>
+<div class="track-options"><button id="track-repeat" type="button" aria-pressed="false" aria-label="한 곡 반복 켜기">한 곡 반복</button><a id="track-link" target="_blank" rel="noopener noreferrer">원본에서 듣기</a></div>
+<p id="player-status" role="status" aria-live="polite">플레이어를 준비하고 있습니다.</p></div><ol id="track-list"></ol></div></div>
+<div class="youtube-engine" aria-hidden="true" inert><div id="youtube-player"></div></div></section></main><footer><a href="#home">권세혁 <span>SEOJIN TECH · SECRETARY OFFICE</span></a><button id="back-top" type="button" aria-label="맨 위로">↑</button></footer></div></body></html>
