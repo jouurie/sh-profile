@@ -2,11 +2,12 @@
   'use strict';if(window.SH_FRAME_SHELL)return;
   const d = window.SH_CONTENT, extra = window.SH_SUPPLEMENT;
   const $ = s => document.querySelector(s);
-  const make = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
+  const displayText = text => String(text).replace(/[ \t]*·[ \t]*/g, '·');
+  const make = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = ['pre','code'].includes(tag) ? text : displayText(text); return n; };
   const source = name => extra.find(x => x.name === name).text.replace(/\r/g, '');
   const guide = name => d.guides.find(x => x.name === name).lines;
   function labeledText(host, text) {
-    text = text.replace(/^\s*(?:\[추천\]|추천\s*:)\s*/, '');
+    text = displayText(text).replace(/^\s*(?:\[추천\]|추천\s*:)\s*/, '');
     const label = text.match(/^([^:\n]{1,32}:)(\s*)/);
     if (label && !/^https?:$/i.test(label[1])) { host.append(make('strong', 'guide-copy-label', label[1]), document.createTextNode(text.slice(label[1].length))); }
     else host.append(document.createTextNode(text));

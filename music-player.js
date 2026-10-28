@@ -4,11 +4,11 @@
   const videoIds = tracks.map(track => track.id);
   const displayTrack = track => {
     const match = track.title.match(/^(.*?)\s*\((feat\..*)\)$/);
-    return { title: match ? match[1] : track.title, artist: track.artist + (match ? ' · ' + match[2] : '') };
+    return { title: match ? match[1] : track.title, artist: track.artist + (match ? '·' + match[2] : '') };
   };
   const $ = id => document.getElementById(id);
   const play = $('track-play'), seek = $('track-seek'), volume = $('track-volume'), mute = $('track-mute');
-  let lastAudibleVolume = Number(volume.value) || 70, pendingVolume = null;
+  let preferredVolume = Number(volume.value), lastAudibleVolume = preferredVolume || 50;
   let selected = 0, widget, ready = false, playing = false, duration = 0, repeatOne = false, failed = false, dead = false;
   let loadTimer, requestTimer;
   const setStatus = text => { $('player-status').textContent = text; };
@@ -20,6 +20,7 @@
     playing = value;
     play.innerHTML = value ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>'; document.querySelector('.record-disc').classList.toggle('is-playing',value);
     play.setAttribute('aria-label', value ? '일시정지' : '재생');
+    play.title = play.getAttribute('aria-label');
     play.setAttribute('aria-pressed', String(value));
   }
   function progress(position) {
@@ -88,6 +89,7 @@
     if (!ready) return;
     // Same load/auto_play contract as the original Tistory/Rhodes toolbar.
     widget.load(currentURL(), { auto_play: start });
+    applyVolume();
     setStatus(start ? '음악을 불러오고 있습니다.' : '재생 버튼을 눌러 주세요.');
     if (start) waitForPlay();
   }
@@ -124,13 +126,18 @@
     $('track-volume-value').textContent = shown + '%';
     mute.setAttribute('aria-pressed', String(silent));
     mute.setAttribute('aria-label', silent ? '음소거 해제' : '음소거');
+    mute.title = mute.getAttribute('aria-label');
+  }
+  function applyVolume() {
+    if (!widget || !ready) return;
+    widget.setVolume(preferredVolume);
+    widget.setMuted(preferredVolume === 0);
   }
   function setVolume(value) {
     if (!widget || !ready) return;
     value = clampVolume(value);
-    pendingVolume = { value, muted: value === 0, until: performance.now() + 1200 };
-    widget.setVolume(value);
-    widget.setMuted(value === 0);
+    preferredVolume = value;
+    applyVolume();
     renderVolume(value, value === 0);
   }
   volume.addEventListener('input', () => setVolume(volume.value));
@@ -145,7 +152,10 @@
     repeatOne = !repeatOne;
     $('track-repeat').setAttribute('aria-pressed', String(repeatOne));
     $('track-repeat').setAttribute('aria-label', repeatOne ? '한 곡 반복 끄기' : '한 곡 반복 켜기');
+    $('track-repeat').title = $('track-repeat').getAttribute('aria-label');
+    $('track-repeat').title = repeatOne ? '한 곡 반복 끄기' : '한 곡 반복 켜기';
   });
+  $('track-repeat').title = '한 곡 반복 켜기';
   select(0);
   controls();
   async function connect() {
@@ -162,16 +172,18 @@
           setVolume(Number(volume.value));
           widget.load(currentURL(), { auto_play: false });
           controls();
-          setStatus('재생 버튼을 눌러 주세요.');
+          setStatus('');
         },
-        play() { if (dead) return; failed = false; window.clearTimeout(requestTimer); playbackState(true); setStatus('재생 중'); },
+        play() { if (dead) return; failed = false; window.clearTimeout(requestTimer); applyVolume(); playbackState(true); setStatus(''); },
         pause() { if (dead) return; playbackState(false); if (!failed) setStatus(''); },
         volume(value, muted) {
           if (dead) return;
-          const level = clampVolume(value);
-          if (pendingVolume && performance.now() < pendingVolume.until && (level !== pendingVolume.value || muted !== pendingVolume.muted)) return;
-          pendingVolume = null;
-          renderVolume(level, muted);
+          const level = clampVolume(value), expectedMuted = preferredVolume === 0;
+          if (level !== preferredVolume || Boolean(muted) !== expectedMuted) {
+            if (playing) applyVolume();
+            return;
+          }
+          renderVolume(preferredVolume, expectedMuted);
         },
         progress(position, total) { if (dead || failed) return; duration = total; progress(position); },
         finish() {
@@ -196,4 +208,24 @@
   });
   window.addEventListener('pageshow', event => { if (event.persisted) { dead = false; controls(); connect(); } });
   let started=false; function startOnPlaylist(){if(!started&&location.hash==='#playlist'){started=true;connect();}} addEventListener('hashchange',startOnPlaylist); startOnPlaylist();
+})();
+
+/* Function hints stay within the viewport and follow current control state. */
+(() => {
+ if(window.IG_FRAME_SHELL||window.CR_FRAME_SHELL)return;
+ const tip=document.createElement('span');tip.className='player-function-tip';tip.setAttribute('role','tooltip');tip.hidden=true;document.body.append(tip);
+ let active;
+ const selector='.player-controls button,.player-controls a,#track-mute,.sh-nav-arrow';
+ function show(event){const target=event.target.closest?.(selector);if(!target)return;active=target;
+  const text=target.id==='track-link'?'원본에서 듣기':target.getAttribute('aria-label')||target.title;
+  if(!text)return;target.removeAttribute('title');tip.textContent=text;tip.hidden=false;
+  const r=target.getBoundingClientRect(),t=tip.getBoundingClientRect();
+  tip.style.left=Math.max(6,Math.min(innerWidth-t.width-6,r.left+r.width/2-t.width/2))+'px';
+  tip.style.top=(r.bottom+t.height+8<innerHeight?r.bottom+6:Math.max(6,r.top-t.height-6))+'px';
+ }
+ function hide(event){if(event?.relatedTarget&&active?.contains(event.relatedTarget))return;tip.hidden=true;active=null;}
+ document.addEventListener('pointerover',show);document.addEventListener('focusin',show);
+ document.addEventListener('pointerout',hide);document.addEventListener('focusout',hide);
+ document.addEventListener('pointerdown',hide);document.addEventListener('keydown',e=>{if(e.key==='Escape')hide();});
+ window.addEventListener('scroll',()=>hide(),true);window.addEventListener('resize',()=>hide());
 })();

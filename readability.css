@@ -73,3 +73,25 @@ body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
 @media(prefers-reduced-motion:reduce){.hero-art>.hand-note{transform:rotate(9deg)!important;transition:none!important}}
 
 .nody-guide-panel .guide-card{animation:none;transform:none}
+
+/* Pointer feedback stays inside each action; no crossing focus outlines. */
+.hero-actions .button,.hero-platform-menu .button{outline:none;box-shadow:none;transform:none;filter:none}
+.hero-actions .button:is(:hover,:active,.is-pressed,:focus-visible),.hero-platform-menu .button:not(:disabled):is(:hover,:active,.is-pressed,:focus-visible){outline:none;box-shadow:none;transform:none;filter:none;background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.hero-actions .button:is(:hover,:active,.is-pressed,:focus-visible)>span,.hero-platform-menu .button:is(:hover,:active,.is-pressed,:focus-visible)>span{transform:none}
+.hero-platform-menu .button:disabled{outline:none;box-shadow:none;transform:none;filter:none}
+/* The playlist is a compact list, not display copy. */
+#track-list .track-button b{font-size:13px;line-height:1.65}
+#track-list .track-button small{font-size:11px;line-height:1.65}
+.hero-document+.tw{margin:10px 0 0;padding:0;max-width:none}
+.hero-document+.tw>summary{display:inline-flex;align-items:center;min-height:32px;padding:3px 10px;border:1px solid var(--red);color:var(--red);cursor:pointer}
+.hero-document+.tw>summary:is(:hover,:active,:focus-visible){outline:none;box-shadow:none;transform:none;filter:none;background:var(--red);color:var(--paper)}
+.site-shell :is(button,summary,a.button):not(.primary){border-color:var(--ink)}
+
+.site-header{display:flex;flex-wrap:nowrap!important;align-items:center;min-height:0!important;height:92px!important;gap:12px!important}.site-header nav{flex:1 1 auto!important;flex-basis:auto!important;flex-wrap:nowrap!important;min-width:0;overflow-x:auto;white-space:nowrap}.site-header nav a{flex:none}.site-header .brand{flex:none}.site-header .character-switcher{flex:0 0 42px}
+@media(max-width:540px){.site-header{height:72px!important}.site-header .brand{font-size:15px}.site-header .brand small{display:none}}
+
+.site-header{flex-direction:row!important}.site-header .brand{align-self:center}.site-header nav{align-self:center}
+
+.sh-nav-rail{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;flex:1 1 auto;min-width:0}.sh-nav-rail.has-overflow{grid-template-columns:18px minmax(0,1fr) 18px;gap:4px}.sh-nav-rail nav{width:100%;scrollbar-width:none}.sh-nav-arrow{display:none;width:18px;height:32px;min-width:18px;align-items:center;justify-content:center;padding:2px;border:0;background:transparent;color:var(--ink);cursor:pointer}.has-overflow>.sh-nav-arrow{display:flex}.sh-nav-arrow svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5}.sh-nav-arrow:disabled{opacity:.3;cursor:default}.sh-nav-arrow:not(:disabled):is(:hover,:active,:focus-visible){background:var(--ink);color:var(--paper)}
+
+@media(max-width:360px){.site-header{gap:6px!important}.site-header .brand{font-size:13px!important;gap:5px}.site-header .brand svg{width:16px;height:16px;flex-basis:16px}.site-header .character-switcher{width:32px;min-width:32px;flex-basis:32px}.site-header .character-switcher>summary{width:32px;min-width:32px;padding-inline:2px}}
