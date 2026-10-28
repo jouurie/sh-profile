@@ -14,7 +14,12 @@ $('#people-content').innerHTML=d.npcs.map((p,i)=>'<article class="person"><div c
 const openingAlt=['야경이 보이는 전무실 책상 위의 찢어진 서류와 만년필','야간 테스트 트랙에 세워진 검은 세단과 운전 장갑','와인 잔과 얼룩진 옷이 놓인 붉은 커튼의 피팅룸','랜턴 하나를 켜 둔 펜트하우스의 소파와 업무 서류','자선 행사장 뒤편에 나란히 놓인 두 고양이 인형탈','햇빛이 드는 사옥 임원층 로비와 열린 엘리베이터'];
 $('#starts-content').innerHTML=d.openings.map((p,i)=>'<article class="opening"><button class="opening-image" type="button" data-opening-image="'+i+'" aria-label="이미지 크게 보기: '+esc(p.name)+'"><img src="assets/opening-0'+(i+1)+(i===5?'-v5.png':'-v4.png')+'" alt="'+openingAlt[i]+'" width="1536" height="1024" loading="'+(i===0?'eager':'lazy')+'" decoding="async"><span class="opening-expand" aria-hidden="true">↗</span></button><div class="opening-copy"><div class="opening-heading"><span class="opening-no">0'+(i+1)+'</span><h2>'+esc(p.name)+'</h2></div><p>'+esc(p.description)+'</p><button type="button" class="text-link sh-opening-preview-button" data-opening-preview="'+i+'" aria-haspopup="dialog" aria-label="'+esc(p.name)+' 전문보기">전문보기 ↗</button></div></article>').join('');
 const artDialog=document.createElement('dialog');artDialog.className='opening-lightbox';artDialog.setAttribute('aria-label','시작 상황 이미지 크게 보기');artDialog.innerHTML='<form method="dialog"><button class="opening-lightbox-close" aria-label="이미지 닫기">닫기 ×</button></form><figure><img alt=""></figure>';document.body.append(artDialog);
-$('#starts-content').addEventListener('click',e=>{const button=e.target.closest('[data-opening-image]');if(!button)return;const i=Number(button.dataset.openingImage),img=artDialog.querySelector('img');img.src='assets/opening-0'+(i+1)+(i===5?'-v5.png':'-v4.png');img.alt=openingAlt[i];artDialog.showModal();});
+$('#starts-content').addEventListener('click',e=>{const button=e.target.closest('[data-opening-image]');if(!button)return;const i=Number(button.dataset.openingImage),img=artDialog.querySelector('img');img.src='assets/opening-0'+(i+1)+(i===5?'-v5.png':'-v4.png');img.alt=openingAlt[i];artDialog.setAttribute('aria-label','시작 상황 이미지 크게 보기');artDialog.showModal();});
+const portrait=$('.profile-photo img');
+portrait.tabIndex=0;portrait.setAttribute('role','button');portrait.setAttribute('aria-label','권세혁 프로필 이미지 크게 보기');portrait.setAttribute('aria-haspopup','dialog');
+function openPortrait(){const img=artDialog.querySelector('img');img.src=portrait.currentSrc||portrait.src;img.alt=portrait.alt;artDialog.setAttribute('aria-label','권세혁 프로필 이미지 크게 보기');artDialog.showModal();}
+portrait.addEventListener('click',openPortrait);
+portrait.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPortrait();}});
 artDialog.addEventListener('click',e=>{if(e.target===artDialog){const r=artDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)artDialog.close();}});
 const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)');
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -12px 0px'});
@@ -39,7 +44,7 @@ reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches)document.que
     active = null;
   };
   const target = event => {
-    if (event.target.closest('button,a,summary,input,textarea,select')) return null;
+    if (event.target.closest('button,a,summary,input,textarea,select,img,.hero-art,.profile-photo,.hero h1.sh-hook,.red-band')) return null;
     for (let node = event.target; node && node !== document.body; node = node.parentElement) {
       if (!node.matches('main *,header *,footer *')) return null;
       if (node.matches('img,svg') || [...node.childNodes].some(child => child.nodeType === 3 && child.textContent.trim())) return node;
@@ -58,4 +63,22 @@ reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches)document.que
   document.addEventListener('pointerup', event => { if(event.pointerType === 'touch') clear(); else show(event); }, {passive:true});
   document.addEventListener('pointercancel', clear, {passive:true});
   document.documentElement.addEventListener('pointerleave', clear, {passive:true});
+})();
+
+// Keep the existing platform menu above clipping and stacking contexts.
+(() => {
+ const chooser=document.querySelector('.hero-platform-chooser'),menu=chooser.querySelector('.hero-platform-menu'),trigger=chooser.querySelector('summary');
+ menu.setAttribute('popover','auto');
+ const place=()=>{
+  if(!menu.matches(':popover-open'))return;
+  const r=trigger.getBoundingClientRect(),w=menu.offsetWidth,h=menu.offsetHeight;
+  menu.style.left=Math.max(8,Math.min(innerWidth-w-8,r.right-w))+'px';
+  menu.style.top=(r.bottom+8+h<=innerHeight-8?r.bottom+8:Math.max(8,r.top-h-8))+'px';
+ };
+ chooser.addEventListener('toggle',()=>{
+  if(chooser.open){if(!menu.matches(':popover-open'))menu.showPopover();place();}
+  else if(menu.matches(':popover-open'))menu.hidePopover();
+ });
+ menu.addEventListener('toggle',e=>{if(e.newState==='closed')chooser.open=false;});
+ addEventListener('resize',place);addEventListener('scroll',place,{passive:true});
 })();

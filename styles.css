@@ -9,7 +9,7 @@
 .hero-art>img{animation:none;opacity:1}.heart-outline{z-index:-1}
 .reveal-ready{opacity:0;transform:translateX(var(--entry-direction,24px));transition:opacity 220ms ease-out,transform 240ms cubic-bezier(.16,1,.3,1)}.reveal-ready.is-visible{opacity:1;transform:none}
 a,button,summary{transition:color 120ms ease-out,background-color 120ms ease-out,border-color 120ms ease-out,transform 100ms ease-out}.button>span{transition:transform 150ms ease-out}.button.is-pressed,button.is-pressed,.home-bottom a.is-pressed{transform:scale(.98)}.site-header a.is-pressed,.text-link.is-pressed,summary.is-pressed{color:var(--red)}.person h2,.opening h2,.file-section>h2{transition:color 140ms ease-out}.tags span{transition:color 120ms ease-out,background-color 120ms ease-out}
-@media(hover:hover) and (pointer:fine){.button:hover>span{transform:translateX(4px)}.person:hover h2,.opening:hover h2,.file-section:hover>h2{color:var(--red)}.tags span:hover{background:var(--red);color:var(--paper)}.copy-button:hover,.settings-platforms button:hover{background:var(--ink);color:var(--paper)}footer button:hover{background:var(--red)}.profile-photo:hover img{filter:contrast(1.03)}}
+@media(hover:hover) and (pointer:fine){.button:hover>span{transform:translateX(4px)}.person:hover h2,.opening:hover h2,.file-section:hover>h2{color:var(--red)}.tags span:hover{background:var(--red);color:var(--paper)}.copy-button:hover,.settings-platforms button:hover{background:var(--ink);color:var(--paper)}footer button:hover{background:var(--red)}}
 @media(hover:none),(pointer:coarse){.person:active h2,.opening:active h2,.file-section:active>h2{color:var(--red)}.tags span:active{background:var(--red);color:var(--paper)}}
 @media(max-width:540px){.hero-art{top:218px;right:0;width:86%;height:290px}.hero-art>img{width:100%;right:0;object-position:top}.hero-lede{margin-top:314px}.hero h1{font-size:54px}.hand-note{top:178px;right:10px}.stamp{left:8px;bottom:7px}.heart-outline{top:-16px;right:12px}.home-bottom strong{font-size:18px}.home-bottom a{padding:18px 10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal-ready{opacity:1;transform:none}}@media(forced-colors:active){:root{scrollbar-color:auto}.button{border:1px solid ButtonText}}
@@ -161,3 +161,9 @@ body{font-size:15px;line-height:1.7}
 /* Emphasize the existing hero heart with the approved red and a solid black shadow. */
 .heart-outline{fill:var(--red);stroke:var(--red);filter:drop-shadow(-14px 14px 0 var(--ink))}
 @media(max-width:540px){.heart-outline{filter:drop-shadow(-9px 9px 0 var(--ink))}}
+
+/* Profile-only enlargement; keep the platform chooser above the red band. */
+.profile-photo img[role="button"]{cursor:zoom-in}
+.profile-photo img[role="button"]:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
+.hero-platform-menu[popover]{position:fixed;inset:auto;margin:0;z-index:100}
+.hero-platform-menu[popover]:not(:popover-open){display:none}
