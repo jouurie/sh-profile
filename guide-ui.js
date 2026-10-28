@@ -13,7 +13,7 @@
   }
   const paragraphs = (host, text) => text.split(/\n+/).filter(Boolean).forEach(line => { const note = /^\s*↳/.test(line), p = make('p', note ? 'guide-subnote' : ''); labeledText(p, line.replace(/^\s*↳[\s\u00a0]*/, '')); host.append(p); });
   function card(title, text, cls = '') { const c = make('article', 'guide-card ' + cls); c.append(make('h3', '', title)); if (text) paragraphs(c, text); return c; }
-  function list(host, items) { const ul = make('ul', 'guide-list'); items.forEach(text => { const note = /^\s*↳/.test(text), item = make(note ? 'p' : 'li', note ? 'guide-subnote' : ''); labeledText(item, text.replace(/^\s*↳[\s\u00a0]*/, '')); if (note && ul.lastElementChild) ul.lastElementChild.append(item); else ul.append(item); }); host.append(ul); }
+  function list(host, items) { const ul = make('ul', 'guide-list'); items.filter(text => text.trim()).forEach(text => { const note = /^\s*↳/.test(text), item = make(note ? 'p' : 'li', note ? 'guide-subnote' : ''); labeledText(item, text.replace(/^\s*↳[\s\u00a0]*/, '')); if (note && ul.lastElementChild) ul.lastElementChild.append(item); else ul.append(item); }); host.append(ul); }
   function disclosure(title, open = false) { const node = make('details', 'guide-disclosure'); node.open = open; node.append(make('summary', '', title)); const body = make('div', 'disclosure-body'); node.append(body); return { node, body }; }
   function copyBlock(title, content, badge = '') {
     const node = card(title, '', 'copy-card'), heading = node.querySelector('h3'), header = make('div', 'copy-card-header');
@@ -92,7 +92,7 @@
       return group;
     }
     if (!value.includes('↔')) return recommendedModelText('div', '', value);
-    const flow = make('div', 'model-flow');
+    const flow = make('div', 'model-flow'); flow.style.setProperty('--model-columns', value.split('↔').map(() => 'minmax(0,1fr)').join(' auto '));
     value.split('↔').forEach((part, i) => { if (i) flow.append(make('span', 'model-flow-arrow', ' ↔ ')); flow.append(recommendedModelText('span', 'model-flow-chip', part.trim())); });
     return flow;
   }
@@ -291,7 +291,7 @@
     restore() {
       if (!platformSection('recovery', '상태창 복원 안내')) return;
       const when = card('사용 시점');
-      list(when, guide('상태창 복원').filter(x => !x.startsWith('http') && !x.startsWith('🔗') && x !== '사용 시점'));
+      list(when, guide('상태창 복원').filter(x => x.trim() && !/https?:|🔗|(?:엘린|노디).*가이드|^사용 시점$/.test(x)));
       const more = card('상태창 복원 안내 + 가이드');
       externalLink(more, '지침 보기', window.SH_STATUS_GUIDE?.[platformSelections.recovery]?.recoveryUrl || guide('상태창 복원').find(x => x.startsWith('http')));
       panel.append(when, more);

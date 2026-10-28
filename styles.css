@@ -223,3 +223,19 @@ body{font-size:15px;line-height:1.7}
 .tags span{transition:color 120ms ease-out,background-color 120ms ease-out,border-color 120ms ease-out,box-shadow 120ms ease-out,transform 120ms ease-out}
 @media(hover:hover) and (pointer:fine){.tags span:hover{background:var(--paper);color:var(--ink);border-color:var(--ink);box-shadow:2px 2px 0 var(--red);transform:translateY(-2px)}}
 .tags span.is-touch-active{background:var(--paper);color:var(--ink);border-color:var(--ink);box-shadow:2px 2px 0 var(--red);transform:translateY(-2px)}
+
+/* Feedback follows information roles; static section headings remain still. */
+:is(.guide-table,.status-calendar-table,.wg-model-support-table) :is(th,td) {transition:box-shadow .14s ease;}
+:is(.guide-table,.status-calendar-table,.wg-model-support-table) th:is(:hover,:active,[data-role-feedback]) {box-shadow:inset 0 -2px currentColor;}
+:is(.guide-table,.status-calendar-table,.wg-model-support-table) td:is(:hover,:active,[data-role-feedback]) {box-shadow:inset 0 0 0 1px currentColor;}
+:is(.guide-table,.status-calendar-table,.wg-model-support-table) :is(th,td) a {font:inherit;line-height:inherit;letter-spacing:inherit;vertical-align:baseline;text-underline-offset:.2em;}
+:is(.guide-list,.guide-card,.guide-model-notes) a.guide-inline-link {font:inherit;line-height:inherit;letter-spacing:inherit;}
+[data-role-feedback="prose"] {text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;text-decoration-color:var(--red,currentColor);}
+
+/* Model groups retain their source order and distinct alternate selection. */
+.guide-model-operation .model-flow{display:grid;grid-template-columns:var(--model-columns);align-items:center;gap:8px;}
+.guide-model-operation .model-flow-chip{display:block;flex:1 1 145px;min-width:0;padding:9px 11px;border:1px solid var(--line);font:inherit;line-height:1.75;}
+.guide-model-operation .model-flow-arrow{flex:0 0 auto;color:var(--red);font-size:18px;}
+.guide-model-operation .model-separate-choice{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font:inherit;line-height:1.75;}
+.guide-model-operation .model-recommended{font:inherit;}
+@media(max-width:540px){.guide-model-operation .model-flow{display:flex;flex-direction:column;align-items:stretch}.guide-model-operation .model-flow-chip{flex:auto}.guide-model-operation .model-flow-arrow{align-self:center;transform:rotate(90deg)}}

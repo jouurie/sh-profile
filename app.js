@@ -34,35 +34,27 @@ document.addEventListener('pointerup',clearPress,{passive:true});document.addEve
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches)document.querySelectorAll('.reveal-ready').forEach(el=>el.classList.add('is-visible'))});
 })();
 
-// Subtle per-item response, shared with the character panels.
+// Apply one stable response per semantic unit, with touch cancellation.
 (() => {
-  let active = null;
-  const clear = () => {
-    if (!active) return;
-    active.node.style.backgroundColor = active.background;
-    active.node.style.transition = active.transition;
-    active = null;
-  };
-  const target = event => {
-    if (event.target.closest('button,a,summary,input,textarea,select,img,.hero-art,.profile-photo,.hero h1.sh-hook,.red-band')) return null;
-    for (let node = event.target; node && node !== document.body; node = node.parentElement) {
-      if (!node.matches('main *,header *,footer *')) return null;
-      if (node.matches('img,svg') || [...node.childNodes].some(child => child.nodeType === 3 && child.textContent.trim())) return node;
-    }
-    return null;
-  };
-  const show = (event, pressed = false) => {
-    const node = target(event);
-    if (!node) { clear(); return; }
-    if (active?.node !== node) { clear(); active = {node, background:node.style.backgroundColor, transition:node.style.transition}; }
-    node.style.transition = 'background-color .14s ease';
-    node.style.backgroundColor = node.closest('.red-band') ? (pressed ? 'rgba(255,255,255,.18)' : 'rgba(255,255,255,.1)') : (pressed ? 'rgba(182,64,44,.09)' : 'rgba(182,64,44,.045)');
-  };
-  document.addEventListener('pointerover', event => { if(event.pointerType !== 'touch') show(event); }, {passive:true});
-  document.addEventListener('pointerdown', event => show(event,true), {passive:true});
-  document.addEventListener('pointerup', event => { if(event.pointerType === 'touch') clear(); else show(event); }, {passive:true});
-  document.addEventListener('pointercancel', clear, {passive:true});
-  document.documentElement.addEventListener('pointerleave', clear, {passive:true});
+ let current=null, touch=null;
+ const clear=()=>{current?.removeAttribute('data-role-feedback');current=null;};
+ const show=e=>{
+  const target=e.target;
+  if(!(target instanceof Element)||target.closest('h1,h2,h3,h4,h5,h6,button,a,summary,input,textarea,select,img,.hero-art,.profile-photo,.hero,.red-band,.settings-path')){clear();return;}
+  const node=target.closest('th,td')||target.closest('p,li');
+  if(!node||!node.closest('main')){clear();return;}
+  if(current!==node)clear();current=node;
+  node.dataset.roleFeedback=node.matches('th')?'label':node.matches('td')?'value':'prose';
+ };
+ document.addEventListener('pointerover',e=>{if(e.pointerType==='mouse')show(e);},{passive:true});
+ document.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){touch={x:e.clientX,y:e.clientY};show(e);}},{passive:true});
+ document.addEventListener('pointermove',e=>{if(touch&&Math.hypot(e.clientX-touch.x,e.clientY-touch.y)>8){touch=null;clear();}},{passive:true});
+ const release=()=>{touch=null;clear();};
+ document.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')release();},{passive:true});
+ document.addEventListener('pointercancel',release,{passive:true});
+ document.addEventListener('scroll',release,{passive:true,capture:true});
+ document.documentElement.addEventListener('pointerleave',clear,{passive:true});
+ window.addEventListener('blur',release);
 })();
 
 // Keep the existing platform menu above clipping and stacking contexts.
