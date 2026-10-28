@@ -157,3 +157,7 @@ body{font-size:15px;line-height:1.7}
 .status-calendar-table td{word-break:keep-all;overflow-wrap:anywhere}
 @media(max-width:1200px){.status-calendar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.settings-comparison > .guide-model-section{display:block;grid-row:auto}.status-calendar-grid{grid-template-columns:1fr;gap:20px}.status-calendar-table{font-size:13px}}
+
+/* Emphasize the existing hero heart with the approved red and a solid black shadow. */
+.heart-outline{fill:var(--red);stroke:var(--red);filter:drop-shadow(-14px 14px 0 var(--ink))}
+@media(max-width:540px){.heart-outline{filter:drop-shadow(-9px 9px 0 var(--ink))}}
