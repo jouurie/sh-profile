@@ -167,3 +167,20 @@ body{font-size:15px;line-height:1.7}
 .profile-photo img[role="button"]:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
 .hero-platform-menu[popover]{position:fixed;inset:auto;margin:0;z-index:100}
 .hero-platform-menu[popover]:not(:popover-open){display:none}
+
+/* One compact reading rhythm across the introduction and all following pages. */
+.reading-copy,.text-block p,.person p,.opening p,.guide-card p,.guide-note,.guide-list,.guide-instructions,.guide-model-notes,.guide-reference-links p{line-height:1.6}
+.reading-copy p,.text-block p,.person p,.guide-card p,.guide-reference-links p{margin-block:0}
+.reading-copy p+p,.text-block p+p,.person p+p,.guide-card p+p,.guide-reference-links p+p{margin-top:6px}
+.text-block+.text-block{margin-top:10px}
+.text-block h3{margin-bottom:6px}
+.file-section{margin-bottom:20px}
+.file-section>h2{padding-bottom:6px;margin-bottom:10px}
+.world-lead{margin-bottom:20px}
+.world-art{margin-bottom:18px}
+.intro-section{padding:32px 0 20px}
+.section-heading{padding:12px 0}
+.intro-grid{margin-top:20px}
+.page-title{margin-bottom:20px;padding-bottom:16px}
+.guide-card,.guide-model-section{margin-bottom:20px}
+.guide-card>h3,.guide-model-section>h3,.guide-table-disclosure>summary{margin-bottom:10px}
