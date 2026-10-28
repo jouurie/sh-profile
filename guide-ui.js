@@ -268,8 +268,13 @@
     calendar.append(make('p', 'guide-note', '장면 날짜를 기준으로 준비 기간과 당일 로어가 연결됩니다. 정기 일정표는 참석·선물·진행을 확정하지 않으며 장면에서 바뀐 약속이 우선합니다.'));
     panel.append(calendar);
 
-    const fields = card('상태값'); list(fields, data.fields);
-      panel.append(fields, copyBlock(platform === 'nody' ? '기본 상태 JSON' : '기본 호출문', data.basic), copyBlock('입력 예시', data.example));
+      const fields = make('details', 'status-reference'), referenceBody = make('div', 'status-reference-body');
+      fields.append(make('summary', '', '상태값 · ' + data.fields.length + '개 항목'), referenceBody);
+      const table = make('table', 'guide-table status-field-table status-field-table-simple'), body = make('tbody');
+      table.setAttribute('aria-label', '세혁 상태값 설명');
+      data.fields.forEach(text => { const split = text.indexOf(': '), row = make('tr'), key = make('th'), value = make('td', '', split < 0 ? text : text.slice(split + 2)); key.scope = 'row'; key.append(make('code', '', split < 0 ? '' : text.slice(0, split))); row.append(key, value); body.append(row); });
+      table.append(body); referenceBody.append(table, copyBlock(platform === 'nody' ? '기본 상태 JSON' : '기본 호출문', data.basic), copyBlock('입력 예시', data.example));
+      preview.after(fields);
       if (data.recoveryUrl) { const recovery = card('상태창 복원'); externalLink(recovery, '복원 안내 보기', data.recoveryUrl); panel.append(recovery); }
     },
     transfer() {

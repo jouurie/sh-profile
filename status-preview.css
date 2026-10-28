@@ -5,3 +5,10 @@
 .status-preview-controls select:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .status-preview-frame{display:block;width:100%;min-height:100px;border:0;background:transparent}
 .status-preview-feedback{min-height:1.8em;margin-top:12px;color:var(--red);font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+
+/* Compact aligned controls; every newly opened preview starts with overtime hidden. */
+.status-preview-controls{display:flex;align-items:center;gap:0;margin:8px 7px 6px;min-width:0}
+.status-preview-controls label{display:inline-grid;grid-template-columns:auto 140px;align-items:center;gap:10px;font-size:12px;line-height:1.3;margin:0}
+.status-preview-controls label>span{white-space:nowrap}
+.status-preview-controls select{width:140px;height:28px;min-height:28px;box-sizing:border-box;margin:0;padding:3px 24px 3px 8px;font-size:12px;line-height:1.3}
+.status-preview-feedback:empty{display:none}
