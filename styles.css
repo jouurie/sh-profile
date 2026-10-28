@@ -254,3 +254,5 @@ body{font-size:15px;line-height:1.7}
 /* Persistent navigation, including narrow embedded views. */
 .site-header{position:sticky;top:0;z-index:30;flex-shrink:0;background:var(--paper)}
 @media(max-width:800px){.site-header{padding:8px 0 0;gap:4px;min-height:0;flex-direction:column;align-items:flex-start}.site-header .brand{font-size:18px;gap:8px}.site-header .brand svg{width:24px;height:24px}.site-header .brand small{font-size:8px;margin-top:3px}.site-header nav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:0 14px;width:100%}.site-header nav a{font-size:11px;line-height:1.5;padding:8px 0}}
+
+.profile-photo{position:static;top:auto}
