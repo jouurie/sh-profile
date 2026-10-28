@@ -129,7 +129,7 @@
     });
     panel.append(platforms);
     if (!selected) { panel.append(make('h2', 'settings-platform-title', '플랫폼 미선택'), make('p', 'guide-note', '엘린 또는 노디를 선택하세요.')); return false; }
-    panel.append(make('h2', 'settings-platform-title', (selected === 'elyn' ? '엘린' : '노디') + ' ' + title));
+    panel.append(make('h2', 'settings-platform-title', title));
     if (selected === 'nody' && section === 'settings') { renderNody(section); return false; }
     return true;
   }
