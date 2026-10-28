@@ -20,7 +20,7 @@
     });
     select.value = 'off'; select.autocomplete = 'off'; label.append(text,select); controls.append(label);
     const frame = document.createElement('iframe');
-    frame.className='status-preview-frame'; frame.title=(platform==='nody'?'노디':'엘린')+' 실제 상태창 미리보기';
+    frame.className='status-preview-frame'; frame.title='상태창 미리보기';
     frame.style.height='400px'; frame.style.pointerEvents='none';
     frame.setAttribute('sandbox','allow-scripts'); frame.setAttribute('scrolling','no');
     const feedback=document.createElement('p'); feedback.className='status-preview-feedback'; feedback.setAttribute('role','status'); feedback.textContent='상태창을 불러오는 중입니다.';
