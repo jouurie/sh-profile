@@ -2,6 +2,17 @@
   'use strict';
   const fine=matchMedia('(hover:hover) and (pointer:fine)'), reduced=matchMedia('(prefers-reduced-motion:reduce)');
   const seals=new Set();
+  const touchTargets=new Map();
+  document.addEventListener('pointerdown',event=>{
+    if(event.pointerType==='mouse')return;
+    const target=event.target.closest('.tags span,.hand-note');if(!target)return;
+    clearTimeout(touchTargets.get(target));target.classList.add('is-touch-active');touchTargets.set(target,null);
+  },{passive:true});
+  const releaseTouch=()=>{for(const [target,timer]of touchTargets){clearTimeout(timer);touchTargets.set(target,setTimeout(()=>{target.classList.remove('is-touch-active');touchTargets.delete(target);},220));}};
+  document.addEventListener('pointerup',releaseTouch,{passive:true});
+  document.addEventListener('pointercancel',releaseTouch,{passive:true});
+  window.addEventListener('blur',releaseTouch);
+
   document.addEventListener('pointerdown',event=>{
     if(!fine.matches||reduced.matches||event.button!==0||event.pointerType!=='mouse'||event.target.closest('input,textarea,select,[contenteditable="true"]'))return;
     if(seals.size>=4){const first=seals.values().next().value;first.remove();seals.delete(first);}
