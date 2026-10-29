@@ -110,7 +110,7 @@
       if(labelGroups[row.label]){th.replaceChildren();labelGroups[row.label].forEach((part,index)=>{if(index)th.append(document.createTextNode(' '));th.append(make('span','guide-label-part',part));});}
       if(section.classList.contains('guide-model-features')&&/^(?:Claude )?Opus$/.test(row.label)){
         [row.value,...row.notes].forEach(text=>{const match=text.match(/^((?:Claude )?Opus \d+(?:\.\d+)*):\s*(.*)$/);const line=make('div','model-opus-version');if(match){line.append(/^(?:Claude )?Opus (?:4\.8|5\.5)$/.test(match[1])?recommendedModelText('span','model-opus-label',match[1]):make('span','model-opus-label',match[1]),document.createTextNode(': '+match[2]));}else line.textContent=text;td.append(line);});
-      }else{td.append(modelValue(row.value));if(title==='추론 조절')notes.push(...row.notes);else row.notes.forEach(n=>td.append(make('small','',n)));}
+      }else{td.append(section.classList.contains('guide-model-features') ? make('div', '', row.value) : modelValue(row.value));if(title==='추론 조절')notes.push(...row.notes);else row.notes.forEach(n=>td.append(make('small','',n)));}
       tr.append(th, td); body.append(tr);
     });
     if (body.childElementCount) { table.append(body); section.append(table); }
