@@ -132,7 +132,7 @@ body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
 @media(max-width:540px){.stamp{padding:11px 0 10px}.stamp>span{font-size:8px}.stamp>svg{width:20px;height:20px}.stamp>small{font-size:9px}}
 
 /* Semantic reading rhythm: each boundary has one spacing owner. */
-:root{--sh-section-gap:32px;--sh-subsection-gap:24px;--sh-paragraph-gap:12px}
+:root{--sh-section-gap:48px;--sh-subsection-gap:24px;--sh-paragraph-gap:12px}
 .reading-copy p,.text-block p,.person p,.guide-card>p:not(.guide-note):not(.guide-subnote){margin-block:0}
 .reading-copy p+p,.text-block p+p,.person p+p,.guide-card>p+p:not(.guide-note):not(.guide-subnote){margin-top:var(--sh-paragraph-gap)}
 .text-block{display:flow-root}
