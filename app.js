@@ -25,13 +25,10 @@ const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)');
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -12px 0px'});
 function prepareReveal(host){host.querySelectorAll('.intro-section,.home-bottom,.file-section,.person,.opening,.world-art,.page-title,.guide-card,.guide-model-section,.copy-card').forEach((el,i)=>{if(el.dataset.reveal)return;el.dataset.reveal='';el.style.setProperty('--entry-direction',i%2?'-24px':'24px');el.classList.add('reveal-ready');if(reduceMotion.matches)el.classList.add('is-visible');else revealObserver.observe(el)})}
 function route(){const id=location.hash.slice(1)||'home';const target=document.getElementById(id);if(!target?.classList.contains('view'))return;document.querySelectorAll('.view').forEach(e=>e.hidden=e!==target);document.querySelectorAll('.site-header nav a').forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.title=(id==='home'?'권세혁 · 업무상 관심입니다.':target.querySelector('h1').textContent+' · 권세혁');window.scrollTo({top:0,behavior:'instant'});prepareReveal(target);
-  window.setTimeout(()=>{
-    if((location.hash.slice(1)||'home')!==id)return;
-    const heading=target.querySelector('.page-title h1');
-    const offset=document.querySelector('.site-header').getBoundingClientRect().height+8;
-    document.documentElement.style.scrollPaddingTop=offset+'px';
-    if(id!=='home'&&heading){heading.closest('.page-title')?.classList.add('is-visible');window.scrollTo({top:Math.max(0,heading.getBoundingClientRect().top+scrollY-offset),behavior:'instant'});}
-  },180);
+  const pageTitle=target.querySelector('.page-title');
+  const offset=document.querySelector('.site-header').getBoundingClientRect().height+8;
+  document.documentElement.style.scrollPaddingTop=offset+'px';
+  pageTitle?.classList.add('is-visible');
 if(!reduceMotion.matches)target.animate([{opacity:.6,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:150,easing:'cubic-bezier(.16,1,.3,1)'});}
 document.addEventListener('click',event=>{const link=event.target.closest('a[href^="#"]');if(link&&link.hash===location.hash&&document.querySelector(link.hash)?.classList.contains('view')){event.preventDefault();route();}});
 window.addEventListener('hashchange',route);route();$('#back-top').onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
