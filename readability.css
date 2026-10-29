@@ -105,3 +105,21 @@ body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
 .page-guide p.guide-note{margin-bottom:14px}
 .page-guide .guide-table small{display:block;margin-top:5px;font-size:11px;line-height:1.6;color:var(--muted)}
 .page-guide :is(.guide-subnote,.guide-note) :is(a,strong,span){font-size:inherit;line-height:inherit}
+
+/* Mobile brand row followed by menu row. */
+
+@media(min-width:801px){.site-header :is(.sh-nav-arrow,.nody-nav-arrow){display:none!important}.site-header :is(.sh-nav-rail,.nody-nav-rail){grid-template-columns:minmax(0,1fr)!important;gap:0!important}}
+@media(max-width:800px){
+:root{--sh-nav-height:96px}
+.site-header{display:grid!important;grid-template-columns:minmax(0,1fr) 36px!important;grid-template-rows:30px 36px!important;align-content:center!important;align-items:center!important;height:96px!important;min-height:96px!important;gap:4px 8px!important;padding:8px 0!important;box-sizing:border-box!important}
+.site-header .brand{grid-column:1/-1;grid-row:1;order:0!important;justify-self:start;align-self:center;font-size:15px!important;line-height:1.2!important;gap:6px!important;white-space:nowrap!important;min-width:0}
+.site-header .brand>svg{width:18px!important;height:18px!important;flex:0 0 18px!important}
+.site-header .brand>span{display:flex!important;align-items:center!important;gap:8px!important;white-space:nowrap!important}
+.site-header .brand small{display:inline!important;margin:0!important;font-size:9px!important;line-height:1.2!important;letter-spacing:.2px!important;white-space:nowrap!important}
+.site-header :is(.sh-nav-rail,.nody-nav-rail){grid-column:1;grid-row:2;order:0!important;width:100%;min-width:0;margin:0!important;align-self:center}
+.site-header .nody-nav-rail{grid-column:1/-1}
+.site-header :is(nav,.site-nav){display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;align-items:center!important;gap:14px!important;width:100%;min-width:0;overflow-x:auto!important;white-space:nowrap}
+.site-header :is(nav a,.site-nav label){font-size:12px!important;flex:none;white-space:nowrap;padding-block:7px!important}
+.site-header .character-switcher{grid-column:2;grid-row:2;order:0!important;margin:0!important;width:36px!important;min-width:36px!important}
+.site-header .character-switcher>summary{width:36px!important;min-width:36px!important;height:32px!important;min-height:32px!important;padding:4px!important}
+}
