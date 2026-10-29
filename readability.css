@@ -130,3 +130,19 @@ body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
 .stamp>svg{width:26px;height:26px;margin:0}
 .stamp>small{font-size:10px;line-height:1.2;white-space:nowrap}
 @media(max-width:540px){.stamp{padding:11px 0 10px}.stamp>span{font-size:8px}.stamp>svg{width:20px;height:20px}.stamp>small{font-size:9px}}
+
+/* Semantic reading rhythm: each boundary has one spacing owner. */
+:root{--sh-section-gap:32px;--sh-subsection-gap:24px;--sh-paragraph-gap:12px}
+.reading-copy p,.text-block p,.person p,.guide-card>p:not(.guide-note):not(.guide-subnote){margin-block:0}
+.reading-copy p+p,.text-block p+p,.person p+p,.guide-card>p+p:not(.guide-note):not(.guide-subnote){margin-top:var(--sh-paragraph-gap)}
+.text-block{display:flow-root}
+.text-block+.text-block{margin-top:var(--sh-subsection-gap)}
+.world-lead{margin-bottom:var(--sh-section-gap)}
+.world-grid{row-gap:var(--sh-section-gap)}
+.world-grid>.file-section{margin:0}
+.world-grid+.file-section{margin-top:var(--sh-section-gap)}
+.ideas-grid{row-gap:var(--sh-subsection-gap)}
+.ideas-grid>.text-block,.ideas-grid>.text-block+.text-block{margin:0}
+.file-section,.guide-card,.guide-model-section{margin-bottom:var(--sh-section-gap)}
+.guide-card h4,.guide-model-section h4{margin:var(--sh-subsection-gap) 0 8px}
+.guide-card>h4:first-child,.guide-card>h3+h4,.guide-model-section>h3+h4{margin-top:0}
