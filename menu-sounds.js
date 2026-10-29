@@ -18,7 +18,7 @@
    for(let i=0;i<data.length;i++){seed=(seed*1664525+1013904223)>>>0;const t=i/context.sampleRate;const attack=Math.min(1,t/.0007);const tail=Math.exp(-t/.0045);const release=t>.009?.24*Math.exp(-(t-.009)/.003):0;data[i]=(seed/2147483648-1)*attack*(tail+release);}
   }
   const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();
-  source.buffer=buffer;filter.type='lowpass';filter.frequency.value=4200;gain.gain.value=.65;
+  source.buffer=buffer;filter.type='lowpass';filter.frequency.value=4200;gain.gain.value=.29;
   source.connect(filter);filter.connect(gain);gain.connect(context.destination);active.add(source);
   source.onended=()=>{active.delete(source);source.disconnect();filter.disconnect();gain.disconnect();ended++;};
   source.start();played++;
