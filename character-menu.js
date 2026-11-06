@@ -47,9 +47,9 @@
     before.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m10 3-5 5 5 5"/></svg>';
     after.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>';
     nav.before(rail);rail.append(before,nav,after);
-    function update(){const overflow=nav.scrollWidth>nav.clientWidth+2;rail.classList.toggle('has-overflow',overflow);before.disabled=nav.scrollLeft<2;after.disabled=nav.scrollLeft>=nav.scrollWidth-nav.clientWidth-2;}
+    function update(){const style=getComputedStyle(nav),items=[...nav.children],needed=items.reduce((sum,item)=>sum+item.getBoundingClientRect().width,0)+Math.max(0,items.length-1)*(parseFloat(style.columnGap)||0)+(parseFloat(style.paddingLeft)||0)+(parseFloat(style.paddingRight)||0);const overflow=needed>rail.clientWidth+1;rail.classList.toggle('has-overflow',overflow);before.disabled=nav.scrollLeft<2;after.disabled=nav.scrollLeft>=nav.scrollWidth-nav.clientWidth-2;}
     before.addEventListener('click',()=>nav.scrollBy({left:-Math.max(80,nav.clientWidth*.8),behavior:'smooth'}));
     after.addEventListener('click',()=>nav.scrollBy({left:Math.max(80,nav.clientWidth*.8),behavior:'smooth'}));
-    nav.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(nav);document.fonts.ready.then(update);update();
+    nav.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(rail);document.fonts.ready.then(update);update();
   }
 })();
