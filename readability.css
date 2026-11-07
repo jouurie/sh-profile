@@ -146,3 +146,6 @@ body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
 .file-section,.guide-card,.guide-model-section{margin-bottom:var(--sh-section-gap)}
 .guide-card h4,.guide-model-section h4{margin:var(--sh-subsection-gap) 0 8px}
 .guide-card>h4:first-child,.guide-card>h3+h4,.guide-model-section>h3+h4{margin-top:0}
+
+/* Contain offscreen reveal paint without changing its motion or vertical flow. */
+@media(max-width:540px){.home-view{overflow-x:clip}}
