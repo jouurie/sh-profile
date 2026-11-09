@@ -260,4 +260,4 @@ body{font-size:15px;line-height:1.7}
 /* Guide heading roles, 2026-11-09. */
 .guide-model-section .guide-table-disclosure>summary{font-size:19px}
 
-.guide-model-section>h3,.guide-card>h3{font-size:19px}
+#guide-panel .guide-model-section>h3,#guide-panel .guide-card>h3{font-size:19px}

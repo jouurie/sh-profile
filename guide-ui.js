@@ -160,7 +160,7 @@
       panel.append(settingsPath('채팅방 설정 → 기억'));
       panel.append(tableBlock("대화 기억 범위\n최근 대화: 5턴"));
       const memorySettings=tableBlock("장기기억 설정\n요약 주기: 5턴\n요약 글자수: 6,000자\n자동으로 요약하기: 켬"); panel.append(memorySettings);
-      appendTableLink(memorySettings,'요약 방식',disclosureLink('기억 지침', 'guide-memory'));
+      appendTableLink(memorySettings,'요약 방식',disclosureLink('기억 지침 내용과 입력 위치', 'guide-memory'));
       panel.append(make('p', 'guide-note', '1턴은 내 말과 캐릭터 답변 한 쌍입니다. 최근 대화는 원문으로 기억할 범위이고, 요약 주기는 장기기억을 갱신할 간격입니다. 원문 비용을 줄이려면 최근 대화부터 조절하세요.'));
       panel.append(make('p', 'guide-note', '요약 주기가 짧을수록 장기기억을 더 자주 갱신합니다. 요약 글자수는 6,000자로 시작하세요. 대화가 길어져 기억할 내용이 많아지면 요약 글자수를 늘리세요.'));
     } else if (active === 'models') {
@@ -237,7 +237,7 @@
       const outputGuide = card('출력 가이던스'); outputGuide.append(disclosureLink('가이던스 내용과 입력 위치', 'guide-output')); panel.append(outputGuide);
       panel.append(tableBlock('응답 설정\n사칭 방지: OFF'));
       panel.append(settingsPath('기억 탭 → 세부 조정 → 추가 요약 지침'));
-      const memoryGuide = card('추가 요약 지침'); memoryGuide.append(disclosureLink('기억 지침', 'guide-memory')); panel.append(memoryGuide);
+      const memoryGuide = card('추가 요약 지침'); memoryGuide.append(disclosureLink('기억 지침 내용과 입력 위치', 'guide-memory')); panel.append(memoryGuide);
     },
     models() {
       if (!platformSection('settings', '모델 추천')) return;
