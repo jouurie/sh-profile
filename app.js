@@ -1,0 +1,181 @@
+(() => {
+const d=window.SH_CONTENT,$=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[ \t]*·[ \t]*/g,'·').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const body=t=>t.split('\n').filter(Boolean).map(l=>'<p>'+esc(l.replace(/^↳\s*/,''))+'</p>').join('');
+const blocks=t=>t.split(/\n\n+/).map(s=>{const lines=s.split('\n');if(lines.length>1&&lines[0].length<20&&!/[.!?。]$/.test(lines[0]))return '<div class="text-block"><h3>'+esc(lines.shift())+'</h3>'+body(lines.join('\n'))+'</div>';return '<div class="text-block">'+body(s)+'</div>'}).join('');
+$('#intro-copy').innerHTML=d.intro.map(t=>'<p>'+esc(t).replaceAll('\n','<br>')+'</p>').join('');
+$('#tw-text').textContent=d.tw;
+$('#profile-content').innerHTML=['기본 정보','외형','성격 · 버릇','말투','특징','취향'].map(name=>'<section class="file-section"><h2>'+esc(name)+'</h2>'+blocks(d.sections[name].replace(/\n(?=버릇\n|불호\n)/g,'\n\n'))+'</section>').join('');
+const ageLine=[...$('#profile-content').querySelectorAll('.file-section:first-child p')].find(p=>p.textContent.startsWith('32세 /'));
+if(ageLine){const original=ageLine.textContent,age=document.createElement('span');age.className='profile-age-anchor';age.textContent='32세';const note=document.createElement('span');note.className='profile-age-annotation';note.setAttribute('aria-hidden','true');note.innerHTML='<svg class="profile-age-circle" viewBox="0 0 64 44"><path d="M55 9C44-2 9 2 5 19S15 42 37 40 63 25 57 13C53 5 37 2 25 5"/></svg><svg class="profile-age-arrow" viewBox="0 0 74 46"><path d="M70 6C47 4 23 13 9 36M10 22 8 37 24 35"/></svg><span class="profile-age-memo">낙하산?</span>';age.append(note);ageLine.replaceChildren(age,document.createTextNode(original.slice(3)));}
+$('#world-content').innerHTML='<figure class="world-art"><img src="assets/world-city-empty-v5.png" alt="사무 빌딩과 카페, 나무가 있는 인물 없는 현대 도심 삽화" width="1536" height="1024" decoding="async"></figure><div class="world-lead reading-copy">'+body(d.sections['세계관'])+'</div><div class="world-grid">'+['서진테크','후계 구도','비서실'].map(name=>'<section class="file-section"><h2>'+esc(name)+'</h2>'+(name==='비서실'?'<figure class="world-art secretary-art"><img src="assets/secretary-office-v5.png" alt="햇빛과 초록 식물이 어우러진 비서실. 업무 책상과 방문객 대기석 너머로 세혁의 집무실 문이 보인다." width="1536" height="1024" loading="lazy" decoding="async"></figure>':'')+blocks(d.sections[name])+'</section>').join('')+'</div><section class="file-section"><h2>진행 소재</h2><div class="ideas-grid">'+blocks(d.sections['진행 소재'])+'</div></section>';
+const npcPortraits={"권태진":"https://cdn.imgchest.com/files/dd5818aa3853.png","윤정희":"https://cdn.imgchest.com/files/be060ea72e05.png","권서윤":"https://cdn.imgchest.com/files/127aca4546e1.png","오나경":"https://cdn.imgchest.com/files/60a931c6bec2.png","박도준":"https://cdn.imgchest.com/files/cac5f50940c8.png","임해리":"https://cdn.imgchest.com/files/20a5bd22ce4f.png","최기태":"https://cdn.imgchest.com/files/745a7b722434.png","장도윤":"https://cdn.imgchest.com/files/ed117aa07424.png","민서현":"https://cdn.imgchest.com/files/f7e3b35ef45c.png","고태섭":"https://cdn.imgchest.com/files/4f4743c4fc1c.png","문하린":"https://cdn.imgchest.com/files/4ae39c5b0d0b.png"};
+$('#people-content').innerHTML=d.npcs.map((p,i)=>'<article class="person"><div class="person-mark" aria-hidden="true"><img src="'+npcPortraits[p.name]+'" alt="" width="72" height="72" loading="lazy" decoding="async"></div><div><h2>'+esc(p.name)+'</h2>'+p.lines.map(l=>'<p>'+esc(l)+'</p>').join('')+'</div></article>').join('');
+const openingImage=i=>'assets/opening-0'+(i+1)+'-office-v2.png';
+const openingAlt=['야경이 보이는 전무실 책상 위의 찢어진 서류와 만년필','야간 테스트 트랙에 세워진 검은 세단과 운전 장갑','와인 잔과 얼룩진 옷이 놓인 붉은 커튼의 피팅룸','랜턴 하나를 켜 둔 펜트하우스의 소파와 업무 서류','자선 행사장 뒤편에 나란히 놓인 두 고양이 인형탈','햇빛이 드는 사옥 임원층 로비와 열린 엘리베이터'];
+$('#starts-content').innerHTML=d.openings.map((p,i)=>'<article class="opening"><button class="opening-image" type="button" data-opening-image="'+i+'" aria-label="이미지 크게 보기: '+esc(p.name)+'"><img src="'+openingImage(i)+'" alt="'+openingAlt[i]+'" width="1536" height="1024" loading="'+(i===0?'eager':'lazy')+'" decoding="async"><span class="opening-expand" aria-hidden="true">↗</span></button><div class="opening-copy"><div class="opening-heading"><span class="opening-no">0'+(i+1)+'</span><h2>'+esc(p.name)+'</h2></div><p>'+esc(p.description)+'</p><button type="button" class="text-link sh-opening-preview-button" data-opening-preview="'+i+'" aria-haspopup="dialog" aria-label="'+esc(p.name)+' 전문보기">전문보기 ↗</button></div></article>').join('');
+const artDialog=document.createElement('dialog');artDialog.className='opening-lightbox';artDialog.setAttribute('aria-label','도입부 이미지 크게 보기');artDialog.innerHTML='<form method="dialog"><button class="opening-lightbox-close" aria-label="이미지 닫기">닫기 ×</button></form><figure><img alt=""></figure>';document.body.append(artDialog);
+$('#starts-content').addEventListener('click',e=>{const button=e.target.closest('[data-opening-image]');if(!button)return;const i=Number(button.dataset.openingImage),img=artDialog.querySelector('img');img.src=openingImage(i);img.alt=openingAlt[i];artDialog.setAttribute('aria-label','도입부 이미지 크게 보기');artDialog.showModal();});
+function bindArtZoom(image,label){
+  if(!image)return;
+  image.tabIndex=0;image.setAttribute('role','button');image.setAttribute('aria-label',label);image.setAttribute('aria-haspopup','dialog');
+  function open(){const img=artDialog.querySelector('img');img.src=image.currentSrc||image.src;img.alt=image.alt;artDialog.setAttribute('aria-label',label);artDialog.showModal();}
+  image.addEventListener('click',open);
+  image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+}
+bindArtZoom($('.profile-photo img'),'권세혁 프로필 이미지 크게 보기');
+bindArtZoom($('.secretary-art img'),'비서실 이미지 크게 보기');
+artDialog.addEventListener('click',e=>{if(e.target===artDialog){const r=artDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)artDialog.close();}});
+const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)');
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -12px 0px'});
+function prepareReveal(host){host.querySelectorAll('.intro-section,.home-bottom,.file-section,.person,.opening,.world-art,.page-title,.guide-card,.guide-model-section,.copy-card').forEach((el,i)=>{if(el.dataset.reveal)return;el.dataset.reveal='';el.style.setProperty('--entry-direction',i%2?'-24px':'24px');el.classList.add('reveal-ready');if(reduceMotion.matches)el.classList.add('is-visible');else revealObserver.observe(el)})}
+function route(){const id=location.hash.slice(1)||'home';const target=document.getElementById(id);if(!target?.classList.contains('view'))return;document.querySelectorAll('.view').forEach(e=>e.hidden=e!==target);document.querySelectorAll('.site-header nav a').forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.title=(id==='home'?'권세혁 · 업무상 관심입니다.':target.querySelector('h1').textContent+' · 권세혁');window.scrollTo({top:0,behavior:'instant'});prepareReveal(target);
+  const pageTitle=target.querySelector('.page-title');
+  const offset=document.querySelector('.site-header').getBoundingClientRect().height+8;
+  document.documentElement.style.scrollPaddingTop=offset+'px';
+  pageTitle?.classList.add('is-visible');
+if(!reduceMotion.matches)target.animate([{opacity:.6,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:150,easing:'cubic-bezier(.16,1,.3,1)'});}
+document.addEventListener('click',event=>{const link=event.target.closest('a[href^="#"]');if(link&&link.hash===location.hash&&document.querySelector(link.hash)?.classList.contains('view')){event.preventDefault();route();}});
+window.addEventListener('hashchange',route);route();$('#back-top').onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+new MutationObserver(()=>prepareReveal($('#guide-panel'))).observe($('#guide-panel'),{childList:true,subtree:true});
+const interactive='a,button,summary';let pressed=null;
+document.addEventListener('pointerdown',e=>{const el=e.target.closest(interactive);if(!el)return;pressed=el;el.classList.add('is-pressed')},{passive:true});
+const clearPress=()=>{pressed?.classList.remove('is-pressed');pressed=null};
+document.addEventListener('pointerup',clearPress,{passive:true});document.addEventListener('pointercancel',clearPress,{passive:true});window.addEventListener('blur',clearPress);
+reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches)document.querySelectorAll('.reveal-ready').forEach(el=>el.classList.add('is-visible'))});
+})();
+
+// Apply one stable response per semantic unit, with touch cancellation.
+(() => {
+ let current=null, touch=null;
+ const clear=()=>{current?.removeAttribute('data-role-feedback');current=null;};
+ const show=e=>{
+  const target=e.target;
+  if(!(target instanceof Element)||target.closest('h1,h2,h3,h4,h5,h6,button,a,summary,input,textarea,select,img,.hero-art,.profile-photo,.hero,.red-band,.settings-path')){clear();return;}
+  const node=target.closest('th,td')||target.closest('p,li');
+  if(!node||!node.closest('main')){clear();return;}
+  if(current!==node)clear();current=node;
+  node.dataset.roleFeedback=node.matches('th')?'label':node.matches('td')?'value':'prose';
+ };
+ document.addEventListener('pointerover',e=>{if(e.pointerType==='mouse')show(e);},{passive:true});
+ document.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'){touch={x:e.clientX,y:e.clientY};show(e);}},{passive:true});
+ document.addEventListener('pointermove',e=>{if(touch&&Math.hypot(e.clientX-touch.x,e.clientY-touch.y)>8){touch=null;clear();}},{passive:true});
+ const release=()=>{touch=null;clear();};
+ document.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')release();},{passive:true});
+ document.addEventListener('pointercancel',release,{passive:true});
+ document.addEventListener('scroll',release,{passive:true,capture:true});
+ document.documentElement.addEventListener('pointerleave',clear,{passive:true});
+ window.addEventListener('blur',release);
+})();
+
+// Keep the existing platform menu above clipping and stacking contexts.
+(() => {
+ const chooser=document.querySelector('.hero-platform-chooser'),menu=chooser.querySelector('.hero-platform-menu'),trigger=chooser.querySelector('summary');
+ menu.setAttribute('popover','auto');
+ const place=()=>{
+  if(!menu.matches(':popover-open'))return;
+  const r=trigger.getBoundingClientRect(),w=menu.offsetWidth,h=menu.offsetHeight;
+  menu.style.left=Math.max(8,Math.min(innerWidth-w-8,r.right-w))+'px';
+  menu.style.top=(r.bottom+8+h<=innerHeight-8?r.bottom+8:Math.max(8,r.top-h-8))+'px';
+ };
+ chooser.addEventListener('toggle',()=>{
+  if(chooser.open){if(!menu.matches(':popover-open'))menu.showPopover();place();}
+  else if(menu.matches(':popover-open'))menu.hidePopover();
+ });
+ menu.addEventListener('toggle',e=>{if(e.newState==='closed')chooser.open=false;});
+ addEventListener('resize',place);addEventListener('scroll',place,{passive:true});
+})();
+
+/* Short, one-shot accents on the existing reading surfaces. */
+(() => {
+  const install = () => {
+    
+    const main = document.querySelector('main');
+    if (!main || !window.IntersectionObserver || !Element.prototype.animate) return;
+
+    const observed = new Map();
+    const seen = new Set();
+    const groups = [["rule",".page-title, .file-section > h2, .hero-document .document-top"],["label",".document-top > :is(span,small), .page-title > small, .file-section > h2 > small"]];
+    const routeKey = host => host.closest('.view')?.id || 'home';
+    const ease = 'cubic-bezier(.22,.61,.36,1)';
+
+    function play(element, frames, duration, delay, kind) {
+      if (document.hidden) return;
+      const animation = element.animate(frames, { duration, delay, easing: ease, fill: 'backwards' });
+      animation.id = 'chapter-accent-' + kind;
+    }
+
+    function line(host) {
+      const rule = document.createElement('span');
+      rule.setAttribute('aria-hidden', 'true');
+      rule.setAttribute('data-chapter-accent-line', '');
+      if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+      Object.assign(rule.style, {
+        position: 'absolute', display: 'block', insetInlineStart: '0',
+        insetBlockEnd: '-1px', inlineSize: 'min(42px, 16%)', blockSize: '2px',
+        background: 'var(--red)', pointerEvents: 'none', transformOrigin: 'left center'
+      });
+      host.append(rule);
+      return rule;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      visible.forEach((entry, index) => {
+        const host = entry.target;
+        const record = observed.get(host);
+        if (!record) return;
+        observer.unobserve(host);
+        observed.delete(host);
+        const first = !seen.has(record.key);
+        seen.add(record.key);
+        const delay = Math.min(index * 38, 114);
+        if (record.kind === 'rule') {
+          const rule = line(host);
+          if (first) play(rule, [
+            { opacity: .2, transform: 'scaleX(.14)' },
+            { opacity: 1, transform: 'scaleX(1)' }
+          ], 260, delay, 'rule');
+          return;
+        }
+        if (!first) return;
+        if (record.kind === 'card') {
+          play(host, [{ opacity: .76, translate: '0 10px' }, { opacity: 1, translate: '0 0' }], 245, delay + 48, 'card');
+        } else {
+          play(host, [{ opacity: .58 }, { opacity: 1 }], 190, delay + 55, 'label');
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: .03 });
+
+    const registered = new WeakSet();
+    function scan() {
+      for (const host of observed.keys()) {
+        if (host.isConnected) continue;
+        observer.unobserve(host);
+        observed.delete(host);
+      }
+      for (const [kind, selector] of groups) {
+        const counts = new Map();
+        main.querySelectorAll(selector).forEach(host => {
+          const route = routeKey(host);
+          const index = counts.get(route) || 0;
+          counts.set(route, index + 1);
+          if (registered.has(host) || host.closest('a,button,summary,[role="button"]')) return;
+          if (kind === 'card' && host.querySelector('a,button,summary,[role="button"],[tabindex],[data-image-viewer]')) return;
+          registered.add(host);
+          observed.set(host, { kind, key: route + ':' + kind + ':' + index });
+          observer.observe(host);
+        });
+      }
+    }
+
+    scan();
+    new MutationObserver(changes => {
+      if (changes.some(change => [...change.addedNodes, ...change.removedNodes]
+        .some(node => node.nodeType === 1 && !node.hasAttribute('data-chapter-accent-line')))) scan();
+    }).observe(main, { childList: true, subtree: true });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once: true });
+  else install();
+})();
