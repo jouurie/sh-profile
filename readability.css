@@ -1,0 +1,151 @@
+/* Shared reading hierarchy; preserve the established Seojin palette and typefaces. */
+:root{--sh-body-size:15px;--sh-small-size:12px;--sh-section-size:26px;--sh-panel-heading-size:22px;--sh-subsection-size:18px;--sh-reading-leading:1.75}
+body{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+.reading-copy,.text-block p,.person p,.opening p,.guide-card p,.guide-note,.guide-instructions,.guide-list,.guide-list>li,.play-ideas>li,.guide-model-notes,.guide-reference-links p,.command-description{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+.reading-copy p+p{margin-top:16px}
+.text-block p{margin:8px 0;line-height:var(--sh-reading-leading)}
+.page-title h1{font-size:38px;line-height:1.3}
+.page-title p{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+.file-section>h2,.section-heading h2,.settings-platform-title,.music-sheet-heading h2{font-family:var(--display);font-size:var(--sh-section-size);font-weight:400;line-height:1.4}
+.guide-card>h3,.guide-model-section>h3,.guide-reference-links>h3,.guide-table-disclosure>summary{font-family:var(--display);font-size:var(--sh-panel-heading-size);font-weight:400;line-height:1.4}
+.file-section>h2,.guide-card>h3,.guide-model-section>h3,.guide-reference-links>h3{margin:0 0 16px;padding:0 0 12px}
+.text-block h3,.guide-card h4,.guide-model-section h4{font-size:var(--sh-subsection-size);font-weight:700;line-height:1.5;margin:0 0 8px}
+.file-section,.guide-card{margin-bottom:32px}
+.world-grid .file-section,.ideas-grid .text-block{min-width:0}
+.ideas-grid .text-block+.text-block{margin-top:0}
+.world-grid,.ideas-grid{gap:28px 32px;align-items:start}
+.section-heading,details.nody-intro>summary.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;padding:16px 0}
+.section-heading h2{margin:0;min-width:0}
+.section-heading>span{font-size:var(--sh-small-size);line-height:1.5;flex-shrink:0}
+.nody-intro>summary:after{margin-left:0}
+.tags.balanced-tags{gap:8px;margin-top:20px;justify-content:flex-start}
+.tags.balanced-tags>.tag-row{gap:6px;flex-wrap:wrap;justify-content:flex-start}
+.tags.balanced-tags>.tag-row>span{font-size:12px;line-height:1.5;padding:3px 9px}
+.hero-caption,.approval dt,.approval dd small{font-size:13px;line-height:1.65}
+.hero-lede{font-size:18px;line-height:1.75}
+.document-top,.page-title>span,.name-line>span,.brand small,.intro-title>span,.site-header .brand small{font-size:11px;line-height:1.5}
+.red-band small{font-size:10px;line-height:1.5}
+.stamp small{font-size:11px;line-height:1.4}
+.site-header nav a,.site-header .site-nav label{font-size:13px;line-height:1.5}
+.guide-nav-title{font-size:13px;line-height:1.5}
+.guide-nav-items :is(button,summary){font-size:14px;line-height:1.5;min-height:44px;padding:11px 10px}
+.guide-table :is(th,td),.status-calendar-table :is(th,td),.wg-model-support-table :is(th,td){font-size:14px;line-height:1.7}
+.guide-card,.guide-list,.guide-reference-links,.guide-panel,.nody-guide-panel{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+.guide-card a,.guide-reference-links a,.guide-list a,.nody-url{font:inherit;line-height:inherit;letter-spacing:inherit;overflow-wrap:anywhere}
+.nody-url{display:inline;color:inherit;text-decoration:none;cursor:text;user-select:text;transition:none}
+.nody-url:hover,.nody-url:active{text-decoration:none;filter:none;transform:none;background:transparent}
+.track-button,.track-button b,#track-list li{font-size:var(--sh-body-size);line-height:1.6}
+.track-button small{font-size:var(--sh-small-size);line-height:1.5}
+#track-list{grid-auto-rows:1fr}
+#track-list>li{height:100%}
+#track-list .track-button{height:100%;min-height:64px}
+.starts-grid,.settings-metrics{grid-auto-rows:1fr}
+.starts-grid>.opening{height:100%}
+.hand-note{font-size:24px;line-height:1.15;transform:rotate(9deg)}
+.hero-copy>.tw{margin-top:14px;max-width:470px;font-size:14px;line-height:1.7}
+.hero-copy>.tw>summary{font-size:14px;line-height:1.6;min-height:28px}
+.hero-copy>.tw p{font-size:14px;line-height:1.7;margin:8px 0 0}
+.mascot-note{display:block;margin:10px 0 4px;max-width:38rem}
+.mascot-note>summary{display:inline-block;cursor:pointer;color:var(--red);font:21px/1.5 'Nanum Pen Script',cursive;padding:2px 0;list-style:none}
+.mascot-note>summary{transform:none!important;box-shadow:none!important;transition:color .12s ease}
+.mascot-note>summary:hover,.mascot-note>summary:active{color:var(--ink)}
+.mascot-note>summary::after{content:' +'}
+.mascot-note[open]>summary::after{content:' −'}
+.mascot-note .mascot-guidance{position:static;inset:auto;width:auto;max-height:none;margin:8px 0 0;padding:14px 16px;overflow:visible;border:1px solid var(--line);font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+.mascot-note .mascot-guidance h3{font-size:var(--sh-subsection-size);line-height:1.5;margin:0 0 8px}
+.mascot-note .mascot-guidance p{font:inherit;margin:0}
+.nz[open]>summary,.nz[open]>summary img{filter:none!important;box-shadow:none!important}
+@media(max-width:800px){.site-header nav,.site-header .site-nav{column-gap:14px}.site-header nav a,.site-header .site-nav label{font-size:12px}.section-heading>span{font-size:11px}}
+@media(max-width:540px){
+ :root{--sh-body-size:14px;--sh-small-size:12px;--sh-section-size:24px;--sh-panel-heading-size:20px;--sh-subsection-size:17px}
+ .page-title h1{font-size:32px}.hero h1.sh-hook{font-size:36px;line-height:1.15}.hero-lede{font-size:16px;line-height:1.75}
+ .tags.balanced-tags>.tag-row>span{font-size:12px;padding:3px 7px}.tags.balanced-tags>.tag-row{gap:5px}
+ .section-heading,details.nody-intro>summary.section-heading{gap:6px 16px}
+ .section-heading>span{font-size:11px}.section-heading h2{font-size:24px}
+ .document-top{font-size:10px;padding:9px 12px;gap:12px}.name-line>span,.brand small,.site-header .brand small{font-size:10px}
+ .hand-note{font-size:22px;line-height:1.15}.red-band small{font-size:10px}.stamp small{font-size:10px}
+ .guide-table :is(th,td),.status-calendar-table :is(th,td),.wg-model-support-table :is(th,td){font-size:13px;line-height:1.65}
+ .guide-nav-items :is(button,summary){font-size:13px;min-height:44px}
+ .person p,.opening p,.text-block p{font-size:var(--sh-body-size);line-height:var(--sh-reading-leading)}
+ .person h2,.opening h2{font-size:22px;line-height:1.4}
+ .world-grid,.ideas-grid{gap:24px}.file-section,.guide-card{margin-bottom:28px}
+}
+@media(prefers-reduced-motion:reduce){.hero-art>.hand-note{transform:rotate(9deg)!important;transition:none!important}}
+
+.nody-guide-panel .guide-card{animation:none;transform:none}
+
+/* Pointer feedback stays inside each action; no crossing focus outlines. */
+.hero-actions .button,.hero-platform-menu .button{outline:none;box-shadow:none;transform:none;filter:none}
+.hero-actions .button:is(:hover,:active,.is-pressed,:focus-visible),.hero-platform-menu .button:not(:disabled):is(:hover,:active,.is-pressed,:focus-visible){outline:none;box-shadow:none;transform:none;filter:none;background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.hero-actions .button:is(:hover,:active,.is-pressed,:focus-visible)>span,.hero-platform-menu .button:is(:hover,:active,.is-pressed,:focus-visible)>span{transform:none}
+.hero-platform-menu .button:disabled{outline:none;box-shadow:none;transform:none;filter:none}
+/* The playlist is a compact list, not display copy. */
+#track-list .track-button b{font-size:13px;line-height:1.65}
+#track-list .track-button small{font-size:11px;line-height:1.65}
+.hero-document+.tw{margin:10px 0 0;padding:0;max-width:none}
+.hero-document+.tw>summary{display:inline-flex;align-items:center;min-height:32px;padding:3px 10px;border:1px solid var(--red);color:var(--red);cursor:pointer}
+.hero-document+.tw>summary:is(:hover,:active,:focus-visible){outline:none;box-shadow:none;transform:none;filter:none;background:var(--red);color:var(--paper)}
+.site-shell :is(button,summary,a.button):not(.primary){border-color:var(--ink)}
+
+.site-header{display:flex;flex-wrap:nowrap!important;align-items:center;min-height:0!important;height:92px!important;gap:12px!important}.site-header nav{flex:1 1 auto!important;flex-basis:auto!important;flex-wrap:nowrap!important;min-width:0;overflow-x:auto;white-space:nowrap}.site-header nav a{flex:none}.site-header .brand{flex:none}.site-header .character-switcher{flex:0 0 42px}
+@media(max-width:540px){.site-header{height:72px!important}.site-header .brand{font-size:15px}.site-header .brand small{display:none}}
+
+.site-header{flex-direction:row!important}.site-header .brand{align-self:center}.site-header nav{align-self:center}
+
+.sh-nav-rail{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;flex:1 1 auto;min-width:0}.sh-nav-rail.has-overflow{grid-template-columns:18px minmax(0,1fr) 18px;gap:4px}.sh-nav-rail nav{width:100%;scrollbar-width:none}.sh-nav-arrow{display:none;width:18px;height:32px;min-width:18px;align-items:center;justify-content:center;padding:2px;border:0;background:transparent;color:var(--ink);cursor:pointer}.has-overflow>.sh-nav-arrow{display:flex}.sh-nav-arrow svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5}.sh-nav-arrow:disabled{opacity:.3;cursor:default}.sh-nav-arrow:not(:disabled):is(:hover,:active,:focus-visible){background:var(--ink);color:var(--paper)}
+
+@media(max-width:360px){.site-header{gap:6px!important}.site-header .brand{font-size:13px!important;gap:5px}.site-header .brand svg{width:16px;height:16px;flex-basis:16px}.site-header .character-switcher{width:32px;min-width:32px;flex-basis:32px}.site-header .character-switcher>summary{width:32px;min-width:32px;padding-inline:2px;gap:2px}.character-switcher>summary>svg{width:14px;height:14px;flex-basis:14px}.character-switcher>summary .character-switch-mark{width:8px;height:8px;flex-basis:8px}.character-switcher>summary .character-switch-mark svg{width:8px;height:8px}}
+
+.intro-section>.section-heading{justify-content:flex-start;column-gap:18px;row-gap:6px}.intro-section>.section-heading>span{margin:0}
+
+/* Supporting copy is a lower semantic tier, never the body-text selector. */
+.page-guide{--guide-note-size:calc(var(--sh-body-size) - 2px)}
+.page-guide p.guide-subnote,.page-guide p.guide-note{font-size:var(--guide-note-size);font-weight:400;line-height:1.65;margin-top:5px}
+.page-guide p.guide-subnote{margin-left:1em;padding-left:0;color:var(--muted)}
+.page-guide p.guide-note{margin-bottom:14px}
+.page-guide .guide-table small{display:block;margin-top:5px;font-size:11px;line-height:1.6;color:var(--muted)}
+.page-guide :is(.guide-subnote,.guide-note) :is(a,strong,span){font-size:inherit;line-height:inherit}
+
+/* Mobile brand row followed by menu row. */
+
+@media(min-width:801px){.site-header :is(.sh-nav-arrow,.nody-nav-arrow){display:none!important}.site-header :is(.sh-nav-rail,.nody-nav-rail){grid-template-columns:minmax(0,1fr)!important;gap:0!important}}
+@media(max-width:800px){
+:root{--sh-nav-height:96px}
+.site-header{display:grid!important;grid-template-columns:minmax(0,1fr) 36px!important;grid-template-rows:30px 36px!important;align-content:center!important;align-items:center!important;height:96px!important;min-height:96px!important;gap:4px 8px!important;padding:8px 0!important;box-sizing:border-box!important}
+.site-header .brand{grid-column:1/-1;grid-row:1;order:0!important;justify-self:start;align-self:center;font-size:15px!important;line-height:1.2!important;gap:6px!important;white-space:nowrap!important;min-width:0}
+.site-header .brand>svg{width:18px!important;height:18px!important;flex:0 0 18px!important}
+.site-header .brand>span{display:flex!important;align-items:center!important;gap:8px!important;white-space:nowrap!important}
+.site-header .brand small{display:inline!important;margin:0!important;font-size:9px!important;line-height:1.2!important;letter-spacing:.2px!important;white-space:nowrap!important}
+.site-header :is(.sh-nav-rail,.nody-nav-rail){grid-column:1;grid-row:2;order:0!important;width:100%;min-width:0;margin:0!important;align-self:center}
+.site-header .nody-nav-rail{grid-column:1/-1}
+.site-header :is(nav,.site-nav){display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;align-items:center!important;gap:14px!important;width:100%;min-width:0;overflow-x:auto!important;white-space:nowrap}
+.site-header :is(nav a,.site-nav label){font-size:12px!important;flex:none;white-space:nowrap;padding-block:7px!important}
+.site-header .character-switcher{grid-column:2;grid-row:2;order:0!important;margin:0!important;width:36px!important;min-width:36px!important}
+.site-header .character-switcher>summary{width:36px!important;min-width:36px!important;height:32px!important;min-height:32px!important;padding:4px!important}
+}
+
+/* Keep all three stamp lines inside the round border. */
+.stamp{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(3,minmax(0,1fr));place-items:center;padding:14px 0 10px}
+.stamp>span{font-size:10px;line-height:1.2;letter-spacing:.08em;white-space:nowrap}
+.stamp>svg{width:26px;height:26px;margin:0}
+.stamp>small{font-size:10px;line-height:1.2;white-space:nowrap}
+@media(max-width:540px){.stamp{padding:11px 0 10px}.stamp>span{font-size:8px}.stamp>svg{width:20px;height:20px}.stamp>small{font-size:9px}}
+
+/* Semantic reading rhythm: each boundary has one spacing owner. */
+:root{--sh-section-gap:48px;--sh-subsection-gap:24px;--sh-paragraph-gap:12px}
+.reading-copy p,.text-block p,.person p,.guide-card>p:not(.guide-note):not(.guide-subnote){margin-block:0}
+.reading-copy p+p,.text-block p+p,.person p+p,.guide-card>p+p:not(.guide-note):not(.guide-subnote){margin-top:var(--sh-paragraph-gap)}
+.text-block{display:flow-root}
+.text-block+.text-block{margin-top:var(--sh-subsection-gap)}
+.world-lead{margin-bottom:var(--sh-section-gap)}
+.world-grid{row-gap:var(--sh-section-gap)}
+.world-grid>.file-section{margin:0}
+.world-grid+.file-section{margin-top:var(--sh-section-gap)}
+.ideas-grid{row-gap:var(--sh-subsection-gap)}
+.ideas-grid>.text-block,.ideas-grid>.text-block+.text-block{margin:0}
+.file-section,.guide-card,.guide-model-section{margin-bottom:var(--sh-section-gap)}
+.guide-card h4,.guide-model-section h4{margin:var(--sh-subsection-gap) 0 8px}
+.guide-card>h4:first-child,.guide-card>h3+h4,.guide-model-section>h3+h4{margin-top:0}
+
+/* Contain offscreen reveal paint without changing its motion or vertical flow. */
+@media(max-width:540px){.home-view{overflow-x:clip}}

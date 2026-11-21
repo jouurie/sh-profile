@@ -1,0 +1,122 @@
+/* 2026-11 refresh. 맨 뒤에 불러온다.
+   1) 판형: 770px 고정 → 넓은 화면에서 1100px. 표시 폭이 1100px 로 묶이는 틀(스크롤바·안쪽 여백 포함)을
+      놓치지 않도록 1040px 부터 넓은 판을 쓴다.
+   2) 넓은 판에서는 한 줄로 길게 쌓이던 문서를 인사기록철답게 여러 단으로 다시 짠다.
+   3) 글자 계층: 화면 제목 › 구역 제목 › 소제목 › 본문 › 주석.
+   4) 새 그림 자리(.image-slot). */
+
+/* ---------- 공통: 글자 계층(모든 폭) ---------- */
+/* 구역 제목: 먹색 명조 + 굵은 먹선. 소제목: 붉은 고딕 + 왼쪽 붉은 표. */
+.file-section>h2,.music-sheet-heading h2{border-bottom:2px solid var(--ink)}
+.section-heading{border-bottom:2px solid var(--ink)}
+.text-block h3,.guide-card h4,.guide-model-section h4{position:relative;padding-left:12px;color:var(--red)}
+.text-block h3::before,.guide-card h4::before,.guide-model-section h4::before{content:'';position:absolute;left:0;top:.32em;bottom:.32em;width:3px;background:var(--red)}
+.page-title>span{letter-spacing:.16em}
+
+/* 새 그림 자리 */
+.image-slot{display:grid;align-content:center;justify-items:center;gap:10px;margin:0;padding:20px;text-align:center;
+  border:1px dashed var(--ink);
+  background:repeating-linear-gradient(135deg,transparent 0 11px,#1717170d 11px 12px),var(--paper)}
+.image-slot>b{font:600 10px/1.4 var(--body);letter-spacing:.2em;color:var(--red)}
+.image-slot>span{max-width:26em;font:400 var(--sh-small-size,12px)/1.7 var(--body);color:var(--muted)}
+.image-slot>i{font:400 22px/1.3 var(--display);font-style:normal;color:var(--ink)}
+
+/* ---------- 넓은 판 ---------- */
+@media(min-width:1040px){
+  :root{--sh-body-size:16px;--sh-small-size:13px;--sh-section-size:30px;--sh-panel-heading-size:24px;--sh-subsection-size:19px}
+  .site-shell{max-width:1100px;padding-inline:36px}
+
+  /* 머리띠 */
+  .site-header{min-height:104px;gap:28px}
+  .site-header .brand{font-size:24px}
+  .site-header nav{gap:26px}
+  .site-header .sh-nav-rail nav a{font-size:15px}
+
+  /* 화면 제목 */
+  .page-title{margin-bottom:36px;padding-bottom:26px}
+  .page-title h1{font-size:50px;line-height:1.25}
+  .page-title p{max-width:44em}
+
+  /* 홈: 문서 표지 */
+  .hero-copy{padding:40px 24px 44px 44px}
+  .name-line strong{font-size:56px}
+  .name-line>span{font-size:14px}
+  .hero h1.sh-hook{font-size:54px;line-height:1.16}
+  .hero-lede{font-size:21px;margin-top:30px}
+  .hero-caption{font-size:14px}
+  .approval{grid-template-columns:96px 1fr;margin-top:26px}
+  .approval dd{font-size:23px}
+  .hero-actions .button{padding:12px 18px;font-size:14px}
+  .hand-note{font-size:30px}
+  .stamp{width:124px;height:124px}
+  .red-band{padding:20px 44px}
+  .red-band p{font-size:28px}
+  .section-heading h2{font-size:32px}
+  .intro-grid{grid-template-columns:300px minmax(0,1fr);gap:48px}
+  .intro-title{position:sticky;top:128px;align-self:start}
+  .intro-title p{font-size:44px;line-height:1.3}
+  #intro-copy{columns:2;column-gap:44px}
+  #intro-copy>p{break-inside:avoid}
+  .home-bottom a{padding:26px 28px}
+  .home-bottom strong{font-size:26px}
+
+  /* 프로필: 왼쪽 사진은 따라오고, 오른쪽 기록은 2단 */
+  .dossier{grid-template-columns:300px minmax(0,1fr);gap:48px}
+  .profile-photo{position:sticky;top:128px;align-self:start}
+  #profile-content{columns:2;column-gap:44px}
+  #profile-content>.file-section{break-inside:avoid}
+  #profile-content>.file-section:first-child{column-span:all}
+  #profile-content>.file-section:first-child .text-block{display:grid;grid-template-columns:220px minmax(0,1fr);gap:0 28px}
+  #profile-content>.file-section:first-child .text-block>h3{grid-row:1/span 20;align-self:start}
+  #profile-content>.file-section:first-child .text-block>:not(h3){grid-column:2}
+
+  /* 세계관 */
+  .world-art img{aspect-ratio:21/9;object-fit:cover}
+  .world-lead{max-width:none;columns:2;column-gap:44px}
+  .world-lead>p{break-inside:avoid}
+  .world-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 36px}
+  .ideas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 36px}
+
+  /* 주변 인물 · 도입부 */
+  .people-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px}
+  .person{grid-template-columns:64px minmax(0,1fr);gap:18px}
+  .person-mark{height:84px}
+  .person h2{font-size:24px}
+  .starts-grid{max-width:none;gap:36px 28px}
+  .opening h2{font-size:23px}
+  .opening .text-link{font-size:13px}
+
+  /* 가이드 */
+  .guide-layout{grid-template-columns:230px minmax(0,1fr);gap:44px}
+  #guide-tabs{position:sticky;top:128px;align-self:start}
+  .guide-nav-title{font-size:14px}
+  .guide-nav-items :is(button,summary){font-size:15px}
+  .guide-table :is(th,td){font-size:15px}
+  .settings-table-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  /* 플레이리스트 */
+  .music-layout{grid-template-columns:340px minmax(0,1fr);gap:48px}
+}
+
+/* Separate existing introduction paragraphs without changing their copy. */
+#intro-copy>p+p::before{content:'';display:block;height:1px;margin:12px 0;background:var(--line);opacity:.55}
+
+#home>.intro-section+.home-bottom{margin-block-start:0}
+
+/* Keep the two introduction columns distinct in the wide layout. */
+@media(min-width:1040px){
+  #intro-copy{position:relative;column-rule:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+  #intro-copy::after{
+    content:'\2665';
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:16px;padding-block:6px;text-align:center;
+    color:var(--red);background:var(--paper);font:11px/1 var(--body);
+    pointer-events:none;
+  }
+  #intro-copy>p:nth-of-type(4){break-before:column;margin-block-start:0}
+  #intro-copy>p:nth-of-type(4)::before{content:none}
+}
+
+/* The office illustration shares the existing image dialog. */
+.secretary-art img[role="button"]{cursor:zoom-in}
+.secretary-art img[role="button"]:focus-visible{outline:3px solid var(--red);outline-offset:-3px}

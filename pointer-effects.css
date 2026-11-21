@@ -1,0 +1,10 @@
+@media(hover:hover) and (pointer:fine){
+ html,body{cursor:url('assets/cursor-pen.svg') 3 3,auto}
+ a,button,summary,[role="button"],select,label[for]{cursor:url('assets/cursor-pen-active.svg') 3 3,pointer}
+ input,textarea,[contenteditable="true"]{cursor:text}
+}
+.sh-click-seal{position:fixed;width:48px;height:48px;z-index:2147483646;pointer-events:none;user-select:none;color:var(--red);animation:sh-seal-print .55s cubic-bezier(.16,1,.3,1) forwards}
+.sh-click-seal svg{width:100%;height:100%;overflow:visible;fill:none;stroke:currentColor}
+.sh-click-seal text{stroke:none;fill:currentColor;font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:2px}
+@keyframes sh-seal-print{0%{opacity:0;transform:rotate(-14deg) scale(1.3)}18%{opacity:.8;transform:rotate(-14deg) scale(.94)}32%{opacity:.8;transform:rotate(-14deg) scale(1)}100%{opacity:0;transform:rotate(-14deg) scale(1)}}
+@media(prefers-reduced-motion:reduce){.sh-click-seal{display:none;animation:none}}
